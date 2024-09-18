@@ -147,7 +147,7 @@ const Tracker = () => {
         backgroundImage: 'url(/Sober-tracker-countdown.png)'
       }}
     >
-      <div className="bg-black bg-opacity-20 absolute inset-0"></div> {/* Overlay */}
+      <div className="bg-black bg-opacity-30 absolute inset-0"></div>
       <div className="relative z-10 max-w-4xl p-8 mt-10 bg-white bg-opacity-0 shadow-lg rounded-lg">
         <h1 className="text-5xl font-extrabold text-center text-cyan-950 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>Sober Tracker</h1>
         <p className="text-center text-gray-800 text-xl">

@@ -15,9 +15,9 @@ const Navbar = () => {
           </div>
           <div className="hidden md:flex space-x-4">
             {['tracker', 'affirmation', 'blog', 'community'].map((item) => (
-              <Link key={item} href={`/${item}`} className="text-cyan-300 hover:text-cyan-400 transition-colors relative group">
+              <Link key={item} href={`/${item}`} className="text-cyan-300 hover:text-yellow-400 transition-colors relative group">
                 <span>{item.charAt(0).toUpperCase() + item.slice(1)}</span>
-                <span className="block w-full h-1 bg-cyan-300 absolute left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                <span className="block w-full h-1 bg-yellow-400 absolute left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
             ))}
           </div>
@@ -25,7 +25,7 @@ const Navbar = () => {
           <div className="-mr-2 flex md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-cyan-300 hover:text-cyan-400 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-cyan-300 hover:text-yellow-400 focus:outline-none"
             >
               <svg
                 className="h-6 w-6"

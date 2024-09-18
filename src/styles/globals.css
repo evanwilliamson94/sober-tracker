@@ -4,18 +4,60 @@
 
 @keyframes darkToLightFadeIn {
     100% {
-        opacity: 1;
-        background-color: #f7f7f7; /* Light color for the tracker page */
-      }
-   
-    0% {
-        opacity: 0;
-        background-color: #0a1128; /* Same dark blue as the navbar/home */
-      }
-      
+      opacity: 10;
+      background-color: #0a1128; /* Dark blue initial */
     }
+    0% {
+      opacity: 0;
+      background-color: #0a1128; /* Transparent to show the image */
+    }
+  }
   
   .animate-darkToLightFadeIn {
-    animation: darkToLightFadeIn 3s ease-in-out forwards; /* Adjust 3s to change the duration */
+    animation: darkToLightFadeIn 3s ease-in-out forwards;
+  }
+  /* Style for the link */
+.link {
+    position: relative;
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 4px 0;
+    overflow: hidden;
+  }
+  
+  /* Before hovering, the line is hidden */
+  .link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: -100%;
+    background-color: #ff8bff; /* Line color */
+    transition: left 0.3s ease-out;
+  }
+  
+  /* On hover, the line moves from left to right */
+  .link:hover::before {
+    left: 0;
+  }
+  
+  /* On mouse leave, the line moves back to the left */
+  .link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ff8bff;
+    transition: left 0.3s ease-out;
+    transition-delay: 0.3s; /* Delays disappearance for smooth animation */
+  }
+  
+  .link:hover::after {
+    left: 100%;
   }
   
