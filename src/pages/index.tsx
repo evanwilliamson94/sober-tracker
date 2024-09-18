@@ -5,7 +5,7 @@ export default function Home() {
     <>
       <div
         className="relative h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: 'url(/sober-tracker-background2.png)' }}
+        style={{ backgroundImage: 'url(/Sober-tracker-background2.png)' }}
       >
         <div className="bg-black bg-opacity-20 absolute inset-0"></div>
         
