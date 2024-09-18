@@ -190,9 +190,8 @@ const Tracker = () => {
 
         {/* Display daily motivational quote */}
         <div className="mt-8 text-center text-xl text-indigo-600 italic">
-  &quot;You&apos;re doing great!&quot;
-</div>
-
+          &quot;{quote}&quot;
+        </div>
 
         {/* Buttons to add day and reset */}
         <div className="mt-10 flex justify-center space-x-6">

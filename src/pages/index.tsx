@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-
 export default function Home() {
   return (
     <>
@@ -8,14 +7,14 @@ export default function Home() {
         className="relative h-screen flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: 'url(/sober-tracker-background2.png)' }}
       >
-        <div className="bg-black bg-opacity-20 absolute inset-0"></div> {/* Overlay */}
+        <div className="bg-black bg-opacity-20 absolute inset-0"></div>
         
         <div className="relative z-10 text-center text-white p-6 max-w-2xl">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Take Control of Your Journey</h1>
           <p className="text-lg md:text-xl mb-8">
             Start tracking your sobriety, gain support, and stay motivated with daily affirmations tailored to your journey.
           </p>
-          <Link href="/tracker">
+          <Link href="/tracker" passHref>
             <span className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
               Start Tracking Now
             </span>
