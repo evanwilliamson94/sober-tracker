@@ -112,7 +112,7 @@ const Tracker = () => {
     return dailyQuotes[today % dailyQuotes.length];
   };
 
-  // Function to reset days after 30 days or based on goal
+  // Increment day and generate quote
   const handleIncrement = () => {
     if (daysSober < selectedGoal) {
       setDaysSober(daysSober + 1);
@@ -120,21 +120,21 @@ const Tracker = () => {
     }
   };
 
-  // Reset progress when hitting the goal or manually
+  // Reset progress when hitting the goal
   const handleReset = () => {
     setDaysSober(0);
   };
 
-  // Handle dropdown goal change
+  // Handle goal selection
   const handleGoalChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedGoal(parseInt(event.target.value));
     handleReset();
   };
 
+  // On component mount, set the initial quote and date
   useEffect(() => {
     setQuote(getDailyQuote());
 
-    // Display today's date
     const today = new Date();
     const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     setCurrentDate(today.toLocaleDateString(undefined, options));
@@ -143,23 +143,19 @@ const Tracker = () => {
   return (
     <div
       className="relative min-h-screen bg-cover bg-center flex items-center justify-center animate-darkToLightFadeIn"
-      style={{
-        backgroundImage: 'url(/Sober-tracker-countdown.png)'
-      }}
+      style={{ backgroundImage: 'url(/Sober-tracker-countdown.png)' }}
     >
-      <div className="bg-black bg-opacity-30 absolute inset-0"></div>
+      <div className="bg-black bg-opacity-30 absolute inset-0"></div> {/* Overlay */}
       <div className="relative z-10 max-w-4xl p-8 mt-10 bg-white bg-opacity-0 shadow-lg rounded-lg">
         <h1 className="text-5xl font-extrabold text-center text-cyan-950 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>Sober Tracker</h1>
-        <p className="text-center text-gray-800 text-xl">
-          Track your sober journey and stay motivated with daily progress!
-        </p>
+        <p className="text-center text-gray-800 text-xl">Track your sober journey and stay motivated with daily progress!</p>
 
-        {/* Current Date Display */}
+        {/* Display current date */}
         <div className="text-center text-xl text-gray-800 mt-4">
           <p>Today is: <span className="font-semibold">{currentDate}</span></p>
         </div>
 
-        {/* Goal Selection Dropdown */}
+        {/* Dropdown to select goal */}
         <div className="mt-6 flex justify-center">
           <label htmlFor="goal" className="text-lg font-medium text-gray-800 mr-2">Set Your Goal: </label>
           <select
@@ -169,23 +165,21 @@ const Tracker = () => {
             className="border border-gray-300 rounded-lg px-3 py-2 text-lg"
           >
             {goals.map((goal) => (
-              <option key={goal} value={goal}>
-                {goal} Days
-              </option>
+              <option key={goal} value={goal}>{goal} Days</option>
             ))}
           </select>
         </div>
 
-        {/* Progress Display */}
+        {/* Display days sober */}
         <div className="mt-10 text-center">
           <h2 className="text-3xl font-bold">You've been sober for:</h2>
           <p className="text-6xl font-extrabold text-yellow-300 mt-4">{daysSober} days</p>
         </div>
 
-        {/* Progress Bar */}
+        {/* Progress bar */}
         <div className="mt-8 w-full bg-gray-200 rounded-full h-6 shadow-md">
           <div
-            className="bg-indigo-600 h-6 rounded-full transition-all duration-500 ease-in-out progress-bar"
+            className="bg-indigo-600 h-6 rounded-full transition-all duration-500 ease-in-out"
             style={{
               width: `${(daysSober / selectedGoal) * 100}%`,
               background: 'linear-gradient(90deg, #6b8bff, #ff8bff)',
@@ -194,12 +188,10 @@ const Tracker = () => {
           ></div>
         </div>
 
-        {/* Daily Motivational Quote */}
-        <div className="mt-8 text-center text-xl text-indigo-600 italic">
-          "{quote}"
-        </div>
+        {/* Display daily motivational quote */}
+        <div className="mt-8 text-center text-xl text-indigo-600 italic">"{quote}"</div>
 
-        {/* Buttons */}
+        {/* Buttons to add day and reset */}
         <div className="mt-10 flex justify-center space-x-6">
           <button
             onClick={handleIncrement}
