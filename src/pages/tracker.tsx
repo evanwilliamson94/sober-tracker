@@ -172,9 +172,10 @@ const Tracker = () => {
 
         {/* Display days sober */}
         <div className="mt-10 text-center">
-          <h2 className="text-3xl font-bold">You've been sober for:</h2>
-          <p className="text-6xl font-extrabold text-yellow-300 mt-4">{daysSober} days</p>
-        </div>
+  <h2 className="text-3xl font-bold">You&apos;ve been sober for:</h2>
+  <p className="text-6xl font-extrabold text-yellow-300 mt-4">{daysSober} days</p>
+</div>
+
 
         {/* Progress bar */}
         <div className="mt-8 w-full bg-gray-200 rounded-full h-6 shadow-md">
