@@ -14,9 +14,9 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="hidden md:flex space-x-4">
-            {['tracker', 'affirmation', 'blog', 'community'].map((item) => (
+            {['tracker', 'sober-motivation', 'blog', 'community'].map((item) => (
               <Link key={item} href={`/${item}`} className="text-gray-200 hover:text-gold-500 transition-colors relative group">
-                <span>{item.charAt(0).toUpperCase() + item.slice(1)}</span>
+                <span>{item.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>
                 <span className="block w-full h-1 bg-gold-500 absolute left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
             ))}
@@ -57,9 +57,9 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {['tracker', 'affirmation', 'blog', 'community'].map((item) => (
+            {['tracker', 'sober-motivation', 'blog', 'community'].map((item) => (
               <Link key={item} href={`/${item}`} className="text-gray-200 block px-3 py-2 rounded-md text-base font-medium hover:text-gold-500">
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {item.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
               </Link>
             ))}
           </div>
