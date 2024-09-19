@@ -13,6 +13,18 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Add Google Analytics for production environment
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      const handleRouteChange = (url: string) => {
+        window.gtag('config', 'G-366GM77WMG', {
+          page_path: url,
+        });
+      };
+      handleRouteChange(window.location.pathname); // Track initial page load
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -26,6 +38,28 @@ export default function Home() {
           content="sobriety tracker, sober living, addiction recovery, daily motivation, sobriety support, sober community"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {/* Google Analytics script */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-366GM77WMG"
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-366GM77WMG', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
       </Head>
 
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
