@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sober-tracker.vercel.app
+
+# Sitemaps
+Sitemap: https://sober-tracker.vercel.app/sitemap.xml
