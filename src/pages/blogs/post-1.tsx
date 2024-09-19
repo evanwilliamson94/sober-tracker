@@ -24,6 +24,19 @@ const BlogPost1 = () => {
           name="keywords"
           content="sober living, rehab, addiction recovery, support system, staying sober, triggers, therapy"
         />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="5 Tips for Staying Sober After Rehab | Sober Tracker Blog" />
+        <meta property="og:description" content="Learn essential tips for staying sober after rehab. Build a support system, develop new habits, stay connected with therapy, and avoid triggers." />
+        <meta property="og:image" content="/sober-living-after-rehab.png" />
+        <meta property="og:url" content="https://sober-tracker.vercel.app/blogs/post-1" />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="5 Tips for Staying Sober After Rehab | Sober Tracker Blog" />
+        <meta name="twitter:description" content="Learn essential tips for staying sober after rehab. Build a support system, develop new habits, stay connected with therapy, and avoid triggers." />
+        <meta name="twitter:image" content="/sober-living-after-rehab.png" />
       </Head>
 
       <div className="min-h-screen bg-gray-900 text-white p-6">
