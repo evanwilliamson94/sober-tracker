@@ -156,8 +156,15 @@ const Tracker = () => {
 
           {/* Display days sober */}
           <div className="mt-10 text-center">
-            <h2 className="text-3xl font-bold">You&apos;ve been sober for:</h2>
+            <h2 className="text-3xl font-bold">You've been sober for:</h2>
             <p className="text-6xl font-extrabold text-yellow-300 mt-4">{daysSober} days</p>
+
+            <button
+              onClick={handleIncrement}
+              className="bg-indigo-600 neon-button text-white py-3 px-8 mt-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 shadow-lg transition-transform transform hover:scale-105"
+            >
+              +1 Day
+            </button>
           </div>
 
           {/* Progress bar */}
