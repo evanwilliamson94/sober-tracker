@@ -24,6 +24,19 @@ const BlogPost4 = () => {
           name="keywords"
           content="sober living, addiction recovery, triggers, avoiding triggers, self-care, managing cravings, stress management"
         />
+
+        {/* Open Graph meta tags */}
+        <meta property="og:title" content="Understanding Triggers and How to Avoid Them" />
+        <meta property="og:description" content="Learn how to identify and avoid triggers that can cause cravings during addiction recovery. Build a plan for high-risk situations and practice self-care." />
+        <meta property="og:image" content="/mindfulness-recovery.png" />
+        <meta property="og:url" content="https://sober-tracker.vercel.app/blogs/post-4" />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter meta tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Understanding Triggers and How to Avoid Them" />
+        <meta name="twitter:description" content="Identify and manage triggers during addiction recovery with self-care tips and high-risk situation strategies." />
+        <meta name="twitter:image" content="/mindfulness-recovery.png" />
       </Head>
 
       <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -74,7 +87,7 @@ const BlogPost4 = () => {
             <section>
               <h2 className="text-3xl font-semibold mb-4">3. Practice Self-Care to Manage Triggers</h2>
               <p className="text-lg mb-4">
-                Self-care is an essential part of managing triggers. By maintaining a healthy lifestyle—getting enough sleep, eating nutritious meals, and exercising regularly—you’re better equipped to handle the emotional ups and downs that can lead to cravings. 
+                Self-care is an essential part of managing triggers. By maintaining a healthy lifestyle—getting enough sleep, eating nutritious meals, and exercising regularly—you’re better equipped to handle the emotional ups and downs that can lead to cravings.
               </p>
               <p className="text-lg mb-4">
                 Engaging in regular self-care activities also helps reduce stress, which is one of the most common triggers for substance use. Activities like yoga, meditation, and hobbies you enjoy can keep your mind and body healthy while providing a positive outlet for emotions.

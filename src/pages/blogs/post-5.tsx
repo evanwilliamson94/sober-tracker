@@ -24,6 +24,25 @@ const BlogPost5 = () => {
           name="keywords"
           content="sobriety, meditation, mindfulness, addiction recovery, mental health, sober living, meditation techniques"
         />
+
+        {/* Open Graph meta tags */}
+        <meta property="og:title" content="Meditation and Mindfulness for Sobriety" />
+        <meta
+          property="og:description"
+          content="Learn how meditation and mindfulness can help maintain sobriety by reducing stress, managing cravings, and supporting long-term recovery."
+        />
+        <meta property="og:image" content="/meditation-sobriety.png" />
+        <meta property="og:url" content="https://sober-tracker.vercel.app/blogs/post-5" />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter meta tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Meditation and Mindfulness for Sobriety" />
+        <meta
+          name="twitter:description"
+          content="Discover how meditation and mindfulness can support your sobriety journey, reduce stress, and help manage cravings."
+        />
+        <meta name="twitter:image" content="/meditation-sobriety.png" />
       </Head>
 
       <div className="min-h-screen bg-gray-900 text-white p-6">
