@@ -30,18 +30,19 @@ const SoberMotivation = () => {
 
   return (
     <>
-      <Head>
-        <title>Sober Motivation - Daily Inspirational Quotes</title>
-        <meta
-          name="description"
-          content="Receive daily personalized motivational quotes for your sobriety journey. Stay inspired and focused every day with Sober Tracker."
-        />
-        <meta
-          name="keywords"
-          content="sobriety motivation, sober quotes, daily sobriety inspiration, addiction recovery motivation, sobriety support"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+     <Head>
+  <title>Sober Motivation - Get Daily Inspirational Sobriety Quotes</title>
+  <meta
+    name="description"
+    content="Receive daily personalized motivational quotes and stay inspired on your sobriety journey with Sober Tracker's unique tools and support."
+  />
+  <meta
+    name="keywords"
+    content="sobriety motivation, sober quotes, daily sobriety inspiration, addiction recovery motivation, sobriety support, sobriety tracker, personalized quotes, sobriety tools"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</Head>
+
 
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6">
         {isLoading ? (
