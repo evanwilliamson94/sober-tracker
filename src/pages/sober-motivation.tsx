@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 
 const SoberMotivation = () => {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Mock user name and quotes data
-  const userName = 'John'; // This will be dynamic after Firebase integration
-  const quotes = [
+  // Wrap 'quotes' in useMemo to prevent re-initializing on every render
+  const quotes = useMemo(() => [
     'The journey of sobriety is the first step to freedom.',
     'Every sober day is a victory.',
     'Strength doesn&apos;t come from what you can do, it comes from overcoming the things you thought you couldn&apos;t.',
     'You&apos;re stronger than any obstacle in your path to recovery.',
     'One day at a time, you&apos;re becoming the best version of yourself.',
-  ];
+  ], []);
 
   const [currentQuote, setCurrentQuote] = useState('');
 
@@ -25,7 +24,7 @@ const SoberMotivation = () => {
     }, 1500); // Simulate loading time
 
     return () => clearTimeout(timer);
-  }, [quotes]); // Added 'quotes' as a dependency
+  }, [quotes]); // Now 'quotes' is stable and doesn't trigger unnecessary renders
 
   return (
     <>
@@ -52,7 +51,7 @@ const SoberMotivation = () => {
         ) : (
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-6">Sober Motivation</h1>
-            <p className="text-2xl mb-4">&quot;{currentQuote}, {userName}!&quot;</p>
+            <p className="text-2xl mb-4">&quot;{currentQuote}, John!&quot;</p>
             <span className="block mt-4 text-white italic">- Anonymous</span>
             <button
               onClick={() => {
@@ -71,4 +70,3 @@ const SoberMotivation = () => {
 };
 
 export default SoberMotivation;
-
