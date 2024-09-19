@@ -39,15 +39,19 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Stay Sober Tracker - Take Control of Your Sobriety Journey</title>
-        <meta
-          name="description"
-          content="Stay Sober Tracker helps you take control of your sobriety journey by offering personalized tracking, daily motivation, and community support."
-        />
-        <meta name="keywords" content="sobriety tracker, sober living, addiction recovery, daily motivation, sobriety support, sober community" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+     <Head>
+  <title>Stay Sober Tracker - Track Your Sobriety Journey</title>
+  <meta
+    name="description"
+    content="Stay Sober Tracker helps you stay motivated on your sobriety journey with personalized tracking, community support, and daily affirmations."
+  />
+  <meta
+    name="keywords"
+    content="sobriety tracker, sober support, addiction recovery, daily motivation, sobriety community"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</Head>
+
 
       {/* Google Analytics Script */}
       <Script
@@ -91,9 +95,8 @@ export default function Home() {
         )}
 
         <div className="relative z-10 text-center text-white p-6 max-w-2xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Take Control of Your Journey
-          </h1>
+        <h1 className="text-5xl md:text-6xl font-bold mb-6">Take Control of Your Sobriety Journey</h1>
+
           <p className="text-lg md:text-xl mb-8">
             Start tracking your sobriety, gain support, and stay motivated with
             daily affirmations tailored to your journey.
