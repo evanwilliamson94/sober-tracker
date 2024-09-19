@@ -106,7 +106,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold mb-8">Join the Sober Journey</h2>
           <p className="text-lg mb-8">
-            Whether you're starting your sobriety journey or maintaining it,
+            Whether you&apos;re starting your sobriety journey or maintaining it,
             Sober Tracker provides the tools and support you need to succeed.
             Connect with others, stay motivated, and track your progress every
             step of the way.
