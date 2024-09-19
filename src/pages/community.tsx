@@ -74,7 +74,7 @@ const Community = () => {
           <div className="mb-12">
             <h2 className="text-3xl font-semibold mb-6 text-center">Featured Photo</h2>
             <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg mx-auto">
-              <Image src={featuredPhoto.url} alt="Featured" width={800} height={600} className="w-full h-auto mb-4 rounded-lg" />
+              <Image src={featuredPhoto.url} alt="Featured photo by Top Contributor" width={800} height={600} className="w-full h-auto mb-4 rounded-lg" />
               <p className="text-lg text-center">Featured Contributor: {featuredPhoto.contributor}</p>
             </div>
           </div>
@@ -106,7 +106,7 @@ const Community = () => {
           <div className="max-w-4xl mx-auto space-y-8">
             {photos.map(photo => (
               <div key={photo.id} className="bg-gray-800 p-6 rounded-lg shadow-lg">
-                <Image src={photo.url} alt={`Photo ${photo.id}`} width={800} height={600} className="w-full h-auto mb-4 rounded-lg" />
+                <Image src={photo.url} alt={`User uploaded photo with ID ${photo.id}`} width={800} height={600} className="w-full h-auto mb-4 rounded-lg" />
                 <div className="flex justify-between items-center mb-4">
                   <button
                     onClick={() => handleLike(photo.id)}
