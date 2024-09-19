@@ -300,11 +300,12 @@ const Tracker = () => {
 
           {/* Link to Community */}
           <div className="text-center">
-            <Link href="/community">
-              <a className="text-indigo-600 text-lg underline hover:text-indigo-800 transition-colors">
-                Join the Community for More Support
-              </a>
-            </Link>
+          <Link href="/community" passHref>
+  <a className="inline-block bg-gradient-to-r from-indigo-600 to-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:from-indigo-500 hover:to-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105">
+    Join the Community for More Support
+  </a>
+</Link>
+
           </div>
         </div>
       </div>
