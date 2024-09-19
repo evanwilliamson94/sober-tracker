@@ -251,7 +251,7 @@ const Tracker = () => {
 
           {/* Display days sober */}
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900">You've been sober for:</h2>
+          <h2 className="text-2xl font-bold text-gray-900">You&apos;ve been sober for:</h2>
             <p className="text-5xl font-extrabold text-indigo-600 mt-3">{daysSober} days</p>
 
             <button
