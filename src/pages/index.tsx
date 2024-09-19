@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
-import Script from 'next/script';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,18 +11,6 @@ export default function Home() {
       setIsLoading(false);
     }, 1500); // Simulate image load time (1.5 seconds)
     return () => clearTimeout(timer);
-  }, []);
-
-  // Add Google Analytics for production environment
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      const handleRouteChange = (url: string) => {
-        window.gtag('config', 'G-366GM77WMG', {
-          page_path: url,
-        });
-      };
-      handleRouteChange(window.location.pathname); // Track initial page load
-    }
   }, []);
 
   return (
@@ -40,26 +27,6 @@ export default function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-
-      {/* Google Analytics Script */}
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-366GM77WMG"
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-366GM77WMG', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
 
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
         {isLoading ? (
