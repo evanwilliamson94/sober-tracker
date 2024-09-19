@@ -4,6 +4,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
 
+// Extend the window object to include gtag in TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: [string, string, Record<string, unknown>?]) => void;
+  }
+}
+
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -15,20 +23,19 @@ export default function Home() {
   }, []);
 
   // Add Google Analytics for production environment
-  export default function Home() {
-    useEffect(() => {
-      if (process.env.NODE_ENV === 'production') {
-        const handleRouteChange = (url: string) => {
-          if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('config', 'G-366GM77WMG', {
-              page_path: url,
-            });
-          }
-        };
-  
-        handleRouteChange(window.location.pathname); // Track initial page load
-      }
-    }, []);
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      const handleRouteChange = (url: string) => {
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('config', 'G-366GM77WMG', {
+            page_path: url,
+          });
+        }
+      };
+
+      handleRouteChange(window.location.pathname); // Track initial page load
+    }
+  }, []);
 
   return (
     <>
@@ -38,10 +45,7 @@ export default function Home() {
           name="description"
           content="Stay Sober Tracker helps you take control of your sobriety journey by offering personalized tracking, daily motivation, and community support."
         />
-        <meta
-          name="keywords"
-          content="sobriety tracker, sober living, addiction recovery, daily motivation, sobriety support, sober community"
-        />
+        <meta name="keywords" content="sobriety tracker, sober living, addiction recovery, daily motivation, sobriety support, sober community" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -65,7 +69,6 @@ export default function Home() {
         }}
       />
 
-      {/* Your existing content here */}
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
         {isLoading ? (
           // Skeleton loading effect with flex column layout
