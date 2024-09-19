@@ -24,6 +24,19 @@ const BlogPost3 = () => {
           name="keywords"
           content="sober motivation, daily affirmations, sobriety journey, addiction recovery, staying motivated, sober living"
         />
+
+        {/* Open Graph meta tags */}
+        <meta property="og:title" content="The Power of Daily Sober Motivation" />
+        <meta property="og:description" content="Learn how daily affirmations, visual reminders, and reflection can support your long-term sobriety and keep you motivated." />
+        <meta property="og:image" content="/daily-sober-motivation.png" />
+        <meta property="og:url" content="https://sober-tracker.vercel.app/blogs/post-3" />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter meta tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="The Power of Daily Sober Motivation" />
+        <meta name="twitter:description" content="Learn how to incorporate daily motivation into your sobriety journey to stay strong and focused." />
+        <meta name="twitter:image" content="/daily-sober-motivation.png" />
       </Head>
 
       <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -64,7 +77,7 @@ const BlogPost3 = () => {
             <section>
               <h2 className="text-3xl font-semibold mb-4">2. Use Visual Reminders Throughout the Day</h2>
               <p className="text-lg mb-4">
-                Visual reminders keep you grounded and focused on your sobriety throughout the day. Whether it&apos;s a sticky note on your mirror, a framed quote on your desk, or a motivational wallpaper on your phone, these reminders can serve as powerful motivators. 
+                Visual reminders keep you grounded and focused on your sobriety throughout the day. Whether it&apos;s a sticky note on your mirror, a framed quote on your desk, or a motivational wallpaper on your phone, these reminders can serve as powerful motivators.
               </p>
               <p className="text-lg mb-4">
                 Try placing these visual cues in areas where you spend the most time, like your workspace, kitchen, or bedroom. You could even carry a small motivational card in your wallet or set up recurring notifications on your phone with encouraging messages. These small but consistent reminders help reinforce your commitment and provide inspiration when you need it most.

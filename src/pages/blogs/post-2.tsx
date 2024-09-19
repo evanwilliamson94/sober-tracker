@@ -24,6 +24,19 @@ const BlogPost2 = () => {
           name="keywords"
           content="supportive sober community, addiction recovery, sober friends, AA meetings, online support groups"
         />
+
+        {/* Open Graph meta tags */}
+        <meta property="og:title" content="How to Build a Supportive Sober Community" />
+        <meta property="og:description" content="Discover how to build a strong sober community through support groups, online communities, and connecting with sober friends." />
+        <meta property="og:image" content="/sobriety-support-group.png" />
+        <meta property="og:url" content="https://sober-tracker.vercel.app/blogs/post-2" />
+        <meta property="og:type" content="article" />
+
+        {/* Twitter meta tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="How to Build a Supportive Sober Community" />
+        <meta name="twitter:description" content="Learn how to create a supportive sober community with tips on support groups, sober friends, and online communities." />
+        <meta name="twitter:image" content="/sobriety-support-group.png" />
       </Head>
 
       <div className="min-h-screen bg-gray-900 text-white p-6">
