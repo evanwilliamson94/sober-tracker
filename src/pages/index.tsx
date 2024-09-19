@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
+import Script from 'next/script';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,29 +39,27 @@ export default function Home() {
           content="sobriety tracker, sober living, addiction recovery, daily motivation, sobriety support, sober community"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        {/* Google Analytics script */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <script
-              async
-              src="https://www.googletagmanager.com/gtag/js?id=G-366GM77WMG"
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-366GM77WMG', {
-                    page_path: window.location.pathname,
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
       </Head>
+
+      {/* Google Analytics Script */}
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-366GM77WMG"
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-366GM77WMG', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
 
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
         {isLoading ? (
