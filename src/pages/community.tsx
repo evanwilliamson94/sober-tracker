@@ -47,21 +47,22 @@ const Community = () => {
 
   return (
     <>
-      <Head>
-        <title>Community - Share Your Journey & Connect</title>
-        <meta
-          name="description"
-          content="Join the Sober Tracker community to share your journey, upload photos, and connect with others on their sobriety journey."
-        />
-        <meta
-          name="keywords"
-          content="sobriety community, sober living, addiction recovery, community support, photo sharing"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <Head>
+  <title>Join the Sober Tracker Community - Share Your Sobriety Journey</title>
+  <meta
+    name="description"
+    content="Connect with others in the Sober Tracker community, share your sobriety journey, and get support from like-minded individuals."
+  />
+  <meta
+    name="keywords"
+    content="sobriety community, sober living, addiction recovery, share your journey, sobriety support"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</Head>
+
 
       <div className="min-h-screen bg-gray-900 text-white p-6">
-        <h1 className="text-4xl font-bold mb-6 text-center">Community</h1>
+      <h1 className="text-4xl font-bold mb-6 text-center">Community</h1>
         <p className="text-xl text-center mb-8">Share your journey, inspire others, and connect with the sober community.</p>
 
         {/* Featured Section */}
