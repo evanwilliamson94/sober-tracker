@@ -24,7 +24,7 @@ const SoberMotivation = () => {
     }, 1500); // Simulate loading time
 
     return () => clearTimeout(timer);
-  }, [quotes]); // Now 'quotes' is stable and doesn't trigger unnecessary renders
+  }, [quotes]); // Added 'quotes' as a dependency
 
   return (
     <>
