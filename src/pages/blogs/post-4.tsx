@@ -48,7 +48,7 @@ const BlogPost4 = () => {
             />
 
             <p className="text-lg mb-4">
-              Triggers are situations, people, or feelings that can cause cravings for substances. Understanding your triggers and learning how to avoid or cope with them is essential for long-term sobriety. Knowing your triggers gives you the power to stay in control and make healthier choices when faced with cravings. Here’s how to identify and manage your triggers effectively to support your recovery.
+              Triggers are situations, people, or feelings that can cause cravings for substances. Understanding your triggers and learning how to avoid or cope with them is essential for long-term sobriety. Knowing your triggers gives you the power to stay in control and make healthier choices when faced with cravings. Here&apos;s how to identify and manage your triggers effectively to support your recovery.
             </p>
 
             <section>
@@ -80,14 +80,14 @@ const BlogPost4 = () => {
                 Engaging in regular self-care activities also helps reduce stress, which is one of the most common triggers for substance use. Activities like yoga, meditation, and hobbies you enjoy can keep your mind and body healthy while providing a positive outlet for emotions.
               </p>
               <p className="text-lg mb-4">
-                Don’t forget to take time for yourself. Regularly doing things that bring you joy and relaxation will not only help you avoid triggers but also keep you focused on your recovery goals.
+                Don&apos;t forget to take time for yourself. Regularly doing things that bring you joy and relaxation will not only help you avoid triggers but also keep you focused on your recovery goals.
               </p>
             </section>
 
             <section>
               <h2 className="text-3xl font-semibold mb-4">4. Build a Strong Support System</h2>
               <p className="text-lg mb-4">
-                Having a strong support system can make a significant difference in how you handle triggers. If you’re feeling overwhelmed by triggers, don’t hesitate to reach out to friends, family, or a therapist. A sponsor, sober friend, or support group can help you navigate difficult situations and provide guidance when you need it most.
+                Having a strong support system can make a significant difference in how you handle triggers. If you&apos;re feeling overwhelmed by triggers, don&apos;t hesitate to reach out to friends, family, or a therapist. A sponsor, sober friend, or support group can help you navigate difficult situations and provide guidance when you need it most.
               </p>
               <p className="text-lg mb-4">
                 Surrounding yourself with positive influences and people who support your sobriety journey is vital for long-term success. Regularly attending support group meetings or therapy sessions can give you a safe space to express your emotions and get advice on managing triggers.
@@ -97,7 +97,7 @@ const BlogPost4 = () => {
             <section>
               <h2 className="text-3xl font-semibold mb-4">5. Learn Healthy Coping Mechanisms</h2>
               <p className="text-lg mb-4">
-                Developing healthy coping mechanisms is a crucial part of managing triggers. Instead of turning to substances when you're feeling stressed, anxious, or lonely, find healthier outlets for your emotions. This could include exercise, creative activities like painting or writing, or even simply talking to someone you trust.
+                Developing healthy coping mechanisms is a crucial part of managing triggers. Instead of turning to substances when you&apos;re feeling stressed, anxious, or lonely, find healthier outlets for your emotions. This could include exercise, creative activities like painting or writing, or even simply talking to someone you trust.
               </p>
               <p className="text-lg mb-4">
                 Finding positive ways to cope with stressors will reduce the likelihood of relapse and help you stay committed to your recovery. Having a toolbox of healthy coping mechanisms allows you to respond to triggers with confidence and resilience.
@@ -115,4 +115,3 @@ const BlogPost4 = () => {
 };
 
 export default BlogPost4;
-
