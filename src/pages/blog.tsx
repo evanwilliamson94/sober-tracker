@@ -15,17 +15,18 @@ const Blog = () => {
   return (
     <>
       <Head>
-        <title>Sober Tracker Blog - Tips for Sober Living and Recovery</title>
-        <meta
-          name="description"
-          content="Read the latest blog posts on sober living, recovery tips, and how to stay motivated in your sobriety journey. Get valuable advice and insights."
-        />
-        <meta
-          name="keywords"
-          content="sobriety blog, addiction recovery, sober tips, sober living, sober motivation, sobriety community"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+  <title>Sober Tracker Blog - Expert Tips for Sober Living & Recovery</title>
+  <meta
+    name="description"
+    content="Discover expert tips, personal stories, and recovery insights on Sober Tracker's blog. Stay motivated, build a sober community, and thrive in your sobriety journey."
+  />
+  <meta
+    name="keywords"
+    content="sobriety blog, addiction recovery, sober tips, sober living, sober motivation, sobriety community, personal recovery stories, meditation for sobriety, mindfulness for addiction recovery"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</Head>
+
 
       <div className="min-h-screen bg-gray-900 text-teal-200 p-6">
         <h1 className="text-4xl font-bold mb-6 text-center text-white">Blog</h1>
