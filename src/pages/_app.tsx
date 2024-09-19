@@ -35,6 +35,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Sober Tracker</title>
+        {/* Google Site Verification Meta Tag */}
+        <meta name="google-site-verification" content="LWkdPNhlJ4-3ynXtY-qDbkvX1CMYl98-YFcLRipwTs8" />
       </Head>
 
       {/* Google Analytics Script */}
