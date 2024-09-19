@@ -1,14 +1,15 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import Navbar from '../components/Navbar';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import Navbar from '../components/Navbar';
+import Head from 'next/head';
 
-// Declare global gtag interface for TypeScript
+// Extend window object to include gtag with a more specific type
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    gtag?: (command: string, targetId: string, config?: Record<string, any>) => void;
   }
 }
 
@@ -24,7 +25,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     };
 
-    // Track page views on route change
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
@@ -33,9 +33,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <title>Sober Tracker</title>
+      </Head>
+
       {/* Google Analytics Script */}
       <Script
-        strategy="afterInteractive"
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=G-366GM77WMG`}
       />
       <Script
