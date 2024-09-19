@@ -48,7 +48,7 @@ const BlogPost2 = () => {
             />
 
             <p className="text-lg mb-4">
-              Building a sober community is one of the most powerful tools for staying sober. It offers accountability, support, and a sense of belonging. Whether you're newly sober or have been on this journey for a while, having a network that understands your struggles and celebrates your progress is crucial. Here’s how to create a strong network that will help you stay on track.
+              Building a sober community is one of the most powerful tools for staying sober. It offers accountability, support, and a sense of belonging. Whether you&apos;re newly sober or have been on this journey for a while, having a network that understands your struggles and celebrates your progress is crucial. Here&apos;s how to create a strong network that will help you stay on track.
             </p>
 
             <section>
@@ -64,7 +64,7 @@ const BlogPost2 = () => {
             <section>
               <h2 className="text-3xl font-semibold mb-4">2. Use Online Communities for Additional Support</h2>
               <p className="text-lg mb-4">
-                In addition to local meetings, there are numerous online communities that offer the flexibility of connecting with others from home. Platforms like Facebook groups, Reddit’s r/StopDrinking, and dedicated apps like Sober Grid and I Am Sober are excellent places to interact with people who are also focusing on sobriety.
+                In addition to local meetings, there are numerous online communities that offer the flexibility of connecting with others from home. Platforms like Facebook groups, Reddit&apos;s r/StopDrinking, and dedicated apps like Sober Grid and I Am Sober are excellent places to interact with people who are also focusing on sobriety.
               </p>
               <p className="text-lg mb-4">
                 These online spaces provide 24/7 access to support, advice, and camaraderie from all over the world. You can engage in discussions, ask for help during moments of weakness, and celebrate victories together. Many people find that the anonymity of online groups allows them to open up more freely.
@@ -74,10 +74,10 @@ const BlogPost2 = () => {
             <section>
               <h2 className="text-3xl font-semibold mb-4">3. Connect with Sober Friends</h2>
               <p className="text-lg mb-4">
-                Building and maintaining friendships with other sober individuals can be a key aspect of long-term recovery. Whether these are friends you’ve met through support groups, online communities, or those who have been in your life for a while, having sober friends gives you a network of people who genuinely understand your journey.
+                Building and maintaining friendships with other sober individuals can be a key aspect of long-term recovery. Whether these are friends you&apos;ve met through support groups, online communities, or those who have been in your life for a while, having sober friends gives you a network of people who genuinely understand your journey.
               </p>
               <p className="text-lg mb-4">
-                Sober friends can offer a safe and understanding space where you can discuss cravings, share positive moments, and even participate in activities that don't revolve around alcohol or drugs. This helps reinforce your commitment to sobriety and encourages healthier lifestyle choices.
+                Sober friends can offer a safe and understanding space where you can discuss cravings, share positive moments, and even participate in activities that don&apos;t revolve around alcohol or drugs. This helps reinforce your commitment to sobriety and encourages healthier lifestyle choices.
               </p>
             </section>
 
