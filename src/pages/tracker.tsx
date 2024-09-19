@@ -1,15 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import { Chart } from 'chart.js/auto'; // Importing Chart.js
 
 // Sample Motivational Quotes for Each Day
 const dailyQuotes = [
-    "You’re stronger than you think!",
-    "One day at a time.",
-    "Keep pushing forward!",
-    "Every day is a victory."
+  "You’re stronger than you think!",
+  "One day at a time.",
+  "Keep pushing forward!",
+  "Every day is a victory."
 ];
 
 // Milestone goals
@@ -56,7 +55,7 @@ const Tracker = () => {
     
     if (chartInstance) {
       chartInstance.data.labels?.push(currentDate);
-      chartInstance.data.datasets[0].data.push(mood === 'Good' ? 3 : mood === 'Okay' ? 2 : 1); // Example values
+      chartInstance.data.datasets[0].data.push(mood === 'Good' ? 3 : mood === 'Okay' ? 2 : 1); // Example values for mood
       chartInstance.update();
     }
   };
@@ -157,7 +156,7 @@ const Tracker = () => {
 
           {/* Display days sober */}
           <div className="mt-10 text-center">
-            <h2 className="text-3xl font-bold">You've been sober for:</h2>
+            <h2 className="text-3xl font-bold">You&apos;ve been sober for:</h2>
             <p className="text-6xl font-extrabold text-yellow-300 mt-4">{daysSober} days</p>
           </div>
 
