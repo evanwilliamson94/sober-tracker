@@ -9,9 +9,9 @@ const SoberMotivation = () => {
   const quotes = [
     'The journey of sobriety is the first step to freedom.',
     'Every sober day is a victory.',
-    'Strength doesn’t come from what you can do, it comes from overcoming the things you thought you couldn’t.',
-    'You’re stronger than any obstacle in your path to recovery.',
-    'One day at a time, you’re becoming the best version of yourself.',
+    'Strength doesn&apos;t come from what you can do, it comes from overcoming the things you thought you couldn&apos;t.',
+    'You&apos;re stronger than any obstacle in your path to recovery.',
+    'One day at a time, you&apos;re becoming the best version of yourself.',
   ];
 
   const [currentQuote, setCurrentQuote] = useState('');
@@ -25,7 +25,7 @@ const SoberMotivation = () => {
     }, 1500); // Simulate loading time
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [quotes]); // Added 'quotes' as a dependency
 
   return (
     <>
@@ -52,7 +52,7 @@ const SoberMotivation = () => {
         ) : (
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-6">Sober Motivation</h1>
-            <p className="text-2xl mb-4">"{currentQuote}, {userName}!"</p>
+            <p className="text-2xl mb-4">&quot;{currentQuote}, {userName}!&quot;</p>
             <span className="block mt-4 text-white italic">- Anonymous</span>
             <button
               onClick={() => {
@@ -71,3 +71,4 @@ const SoberMotivation = () => {
 };
 
 export default SoberMotivation;
+
