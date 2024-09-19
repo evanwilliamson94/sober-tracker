@@ -6,10 +6,10 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import Head from 'next/head';
 
-// Extend window object to include gtag with a more specific type
+// Define the gtag function type
 declare global {
   interface Window {
-    gtag?: (command: string, targetId: string, config?: Record<string, any>) => void;
+    gtag?: (command: string, targetId: string, config?: { [key: string]: unknown }) => void;
   }
 }
 
