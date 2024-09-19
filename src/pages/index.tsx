@@ -11,7 +11,6 @@ declare global {
   }
 }
 
-
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +21,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Add Google Analytics for production environment
+  // Google Analytics tracking
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       const handleRouteChange = (url: string) => {
@@ -32,26 +31,33 @@ export default function Home() {
           });
         }
       };
-
       handleRouteChange(window.location.pathname); // Track initial page load
     }
   }, []);
 
   return (
     <>
-     <Head>
-  <title>Stay Sober Tracker - Track Your Sobriety Journey</title>
-  <meta
-    name="description"
-    content="Stay Sober Tracker helps you stay motivated on your sobriety journey with personalized tracking, community support, and daily affirmations."
-  />
-  <meta
-    name="keywords"
-    content="sobriety tracker, sober support, addiction recovery, daily motivation, sobriety community"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-</Head>
-
+      <Head>
+        <title>Stay Sober Tracker - Track Your Sobriety Journey</title>
+        <meta
+          name="description"
+          content="Stay Sober Tracker helps you stay motivated on your sobriety journey with personalized tracking, community support, and daily affirmations."
+        />
+        <meta
+          name="keywords"
+          content="sobriety tracker, sober support, addiction recovery, daily motivation, sobriety community"
+        />
+        {/* Open Graph meta tags for social media sharing */}
+        <meta property="og:title" content="Stay Sober Tracker - Track Your Sobriety Journey" />
+        <meta property="og:description" content="Join the journey to sobriety with our personalized tracker, community support, and daily affirmations tailored to your goals." />
+        <meta property="og:image" content="/Sober-tracker-background2.png" />
+        <meta property="og:url" content="https://sober-tracker.vercel.app" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Stay Sober Tracker" />
+        <meta name="twitter:description" content="Track your sobriety journey and stay motivated with daily affirmations and community support." />
+        <meta name="twitter:image" content="/Sober-tracker-background2.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
 
       {/* Google Analytics Script */}
       <Script
@@ -73,6 +79,7 @@ export default function Home() {
         }}
       />
 
+      {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
         {isLoading ? (
           // Skeleton loading effect with flex column layout
@@ -95,8 +102,7 @@ export default function Home() {
         )}
 
         <div className="relative z-10 text-center text-white p-6 max-w-2xl">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">Take Control of Your Sobriety Journey</h1>
-
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">Take Control of Your Sobriety Journey</h1>
           <p className="text-lg md:text-xl mb-8">
             Start tracking your sobriety, gain support, and stay motivated with
             daily affirmations tailored to your journey.
@@ -109,6 +115,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Features Section */}
       <section className="py-20 bg-gray-100">
         <div className="max-w-7xl mx-auto text-center px-4 md:px-0">
           <h2 className="text-4xl font-bold text-gray-800 mb-8">
@@ -116,44 +123,34 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-2xl font-bold text-indigo-600">
-                Daily Motivation
-              </h3>
+              <h3 className="text-2xl font-bold text-indigo-600">Daily Motivation</h3>
               <p className="mt-4 text-gray-600">
-                Get daily affirmations and motivational quotes tailored to your
-                sobriety journey.
+                Get daily affirmations and motivational quotes tailored to your sobriety journey.
               </p>
             </div>
             <div className="p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-2xl font-bold text-indigo-600">
-                Track Your Progress
-              </h3>
+              <h3 className="text-2xl font-bold text-indigo-600">Track Your Progress</h3>
               <p className="mt-4 text-gray-600">
-                Stay on top of your progress with personalized tracking and
-                goal-setting features.
+                Stay on top of your progress with personalized tracking and goal-setting features.
               </p>
             </div>
             <div className="p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-2xl font-bold text-indigo-600">
-                Community Support
-              </h3>
+              <h3 className="text-2xl font-bold text-indigo-600">Community Support</h3>
               <p className="mt-4 text-gray-600">
-                Join a community of like-minded individuals committed to their
-                journey of sobriety.
+                Join a community of like-minded individuals committed to their journey of sobriety.
               </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Call to Action: Join the Community */}
       <section className="py-20 bg-gray-900 text-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold mb-8">Join the Sober Journey</h2>
           <p className="text-lg mb-8">
-            Whether you&apos;re starting your sobriety journey or maintaining it,
-            Sober Tracker provides the tools and support you need to succeed.
-            Connect with others, stay motivated, and track your progress every
-            step of the way.
+            Whether you&apos;re starting your sobriety journey or maintaining it, Sober Tracker provides the tools and support you need to succeed.
+            Connect with others, stay motivated, and track your progress every step of the way.
           </p>
           <Link href="/community" passHref>
             <span className="inline-block bg-teal-500 hover:bg-teal-600 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
