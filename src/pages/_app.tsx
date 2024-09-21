@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import Head from 'next/head';
+import { Provider } from 'react-redux';  // Import the Redux Provider
+import store from "../redux/store"
 
 // Define the gtag function type
 declare global {
@@ -59,8 +61,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
 
-      <Navbar />
-      <Component {...pageProps} />
+      {/* Wrap the app in Redux Provider */}
+      <Provider store={store}>
+        <Navbar />
+        <Component {...pageProps} />
+      </Provider>
     </>
   );
 }
