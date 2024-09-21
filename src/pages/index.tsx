@@ -147,34 +147,47 @@ export default function Home() {
       </section>
 
       {/* Subscription Features Section */}
-      <section className="py-20 bg-white text-center">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold mb-8 text-indigo-600">Get More with Premium</h2>
-          <p className="text-lg text-gray-700 mb-8">
-            Access exclusive features, track longer milestones, and receive custom sobriety rewards with our premium subscription.
-          </p>
-          <div className="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-10">
-            <div className="bg-gray-100 p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Free Plan</h3>
-              <ul className="list-disc text-left text-gray-700 space-y-2">
-                <li>Track your sobriety journey</li>
-                <li>Daily affirmations</li>
-                <li>Community access</li>
-              </ul>
-            </div>
-            <div className="bg-indigo-600 p-8 rounded-lg shadow-lg text-white">
-              <h3 className="text-2xl font-bold mb-4">Premium Plan</h3>
-              <ul className="list-disc text-left space-y-2">
-                <li>All free plan features</li>
-                <li>Advanced tracking tools</li>
-                <li>Custom sobriety milestones</li>
-                <li>Exclusive rewards & badges</li>
-                <li>Priority support</li>
-              </ul>
-            </div>
+   
+      <section className="py-16 bg-white text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-indigo-600">
+          Get More with Premium
+        </h2>
+        <p className="text-base sm:text-lg text-gray-700 mb-8">
+          Access exclusive features, track longer milestones, and receive custom sobriety rewards with our premium subscription.
+        </p>
+
+        {/* Pricing Plans */}
+        <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-10">
+          {/* Free Plan */}
+          <div className="bg-gray-100 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-xs md:max-w-sm">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Free Plan</h3>
+            <ul className="list-disc text-left text-gray-700 space-y-2 ml-4">
+              <li>Track your sobriety journey</li>
+              <li>Daily affirmations</li>
+              <li>Community access</li>
+            </ul>
+          </div>
+
+          {/* Premium Plan */}
+          <div className="bg-indigo-600 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-xs md:max-w-sm text-white">
+            <h3 className="text-2xl font-bold mb-4">Premium Plan</h3>
+            <ul className="list-disc text-left space-y-2 ml-4">
+              <li>All free plan features</li>
+              <li>Advanced tracking tools</li>
+              <li>Custom sobriety milestones</li>
+              <li>Exclusive rewards & badges</li>
+              <li>Priority support</li>
+            </ul>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+
+
+
+
 
       {/* Call to Action: Join the Community */}
       <section className="py-20 bg-gray-900 text-white text-center">
