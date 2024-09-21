@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
+import { RootState } from "../redux/store"; // Import the RootState type
 
 export default function SignupModal() {
-  const isOpen = useSelector((state: any) => state.modals.signupModalOpen);
+  const isOpen = useSelector((state: RootState) => state.modals.signupModalOpen); // Properly type useSelector
   const dispatch = useDispatch();
 
   const [name, setName] = useState<string>("");

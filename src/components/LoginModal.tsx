@@ -5,9 +5,10 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
+import { RootState } from "../redux/store"; // Import the RootState type
 
 export default function LoginModal() {
-  const isOpen = useSelector((state: any) => state.modals.loginModalOpen);
+  const isOpen = useSelector((state: RootState) => state.modals.loginModalOpen); // Properly type useSelector
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState<string>("");
@@ -20,7 +21,7 @@ export default function LoginModal() {
       console.error("Firebase auth is not initialized");
       return;
     }
-    
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.reload();
