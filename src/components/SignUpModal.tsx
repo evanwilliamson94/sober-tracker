@@ -38,13 +38,6 @@ export default function SignupModal() {
 
   return (
     <>
-      <button
-        className="bg-white text-black w-[160px] rounded-full h-[40px] hover:bg-gray-300"
-        onClick={() => dispatch(openSignupModal())}
-      >
-        Sign Up
-      </button>
-
       <Modal
         open={isOpen}
         onClose={() => dispatch(closeSignupModal())}
