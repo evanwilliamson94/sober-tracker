@@ -118,33 +118,34 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-100">
-        <div className="max-w-7xl mx-auto text-center px-4 md:px-0">
-          <h2 className="text-4xl font-bold text-gray-800 mb-8">
-            Why Choose Sober Tracker?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-2xl font-bold text-indigo-600">Daily Motivation</h3>
-              <p className="mt-4 text-gray-600">
-                Receive daily affirmations and motivational quotes personalized to your sobriety journey.
-              </p>
-            </div>
-            <div className="p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-2xl font-bold text-indigo-600">Track Your Progress</h3>
-              <p className="mt-4 text-gray-600">
-                Stay on top of your recovery milestones with personalized tracking tools and goal-setting features.
-              </p>
-            </div>
-            <div className="p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-2xl font-bold text-indigo-600">Community Support</h3>
-              <p className="mt-4 text-gray-600">
-                Join a community of individuals dedicated to their sobriety journey and support each other.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="py-16 bg-gray-100">
+  <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-8">
+      Why Choose Sober Tracker?
+    </h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="p-6 bg-white shadow-lg rounded-lg">
+        <h3 className="text-2xl font-bold text-indigo-600">Daily Motivation</h3>
+        <p className="mt-4 text-gray-600">
+          Receive daily affirmations and motivational quotes personalized to your sobriety journey.
+        </p>
+      </div>
+      <div className="p-6 bg-white shadow-lg rounded-lg">
+        <h3 className="text-2xl font-bold text-indigo-600">Track Your Progress</h3>
+        <p className="mt-4 text-gray-600">
+          Stay on top of your recovery milestones with personalized tracking tools and goal-setting features.
+        </p>
+      </div>
+      <div className="p-6 bg-white shadow-lg rounded-lg">
+        <h3 className="text-2xl font-bold text-indigo-600">Community Support</h3>
+        <p className="mt-4 text-gray-600">
+          Join a community of individuals dedicated to their sobriety journey and support each other.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Subscription Features Section */}
    
