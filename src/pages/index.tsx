@@ -97,15 +97,15 @@ export default function Home() {
               objectFit="cover"
               onLoadingComplete={() => setIsLoading(false)}
             />
-            <div className="bg-black bg-opacity-20 absolute inset-0"></div>
+            <div className="bg-black bg-opacity-40 absolute inset-0 z-1"></div>
           </>
         )}
 
-        <div className="relative z-10 text-center text-white p-6 max-w-2xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="relative z-10 text-center text-white p-4 sm:p-6 max-w-xl sm:max-w-2xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
             Take Control of Your Sobriety Journey
           </h1>
-          <p className="text-lg md:text-xl mb-8">
+          <p className="text-base sm:text-lg md:text-xl mb-8">
             Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
           </p>
           <Link href="/tracker">
