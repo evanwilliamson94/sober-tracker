@@ -16,10 +16,10 @@ const Banner: React.FC = () => {
           </p>
         </div>
 
-        {/* Buttons centered on all screen sizes */}
-        <div className="flex flex-col md:flex-row md:space-x-4 justify-center">
+       {/* Buttons centered and side by side on all screen sizes */}
+       <div className="flex flex-row space-x-4 justify-center">
           <button
-            className="flex items-center justify-center bg-white text-indigo-600 hover:bg-gray-100 py-2 px-6 rounded-lg font-bold transition duration-300 transform hover:scale-105 mb-3 md:mb-0"
+            className="flex items-center justify-center bg-white text-indigo-600 hover:bg-gray-100 py-2 px-6 rounded-lg font-bold transition duration-300 transform hover:scale-105"
             onClick={() => dispatch(openLoginModal())}
           >
             <FaSignInAlt className="mr-2" /> Log In
