@@ -32,7 +32,12 @@ export default function LoginModal() {
 
   return (
     <>
-     
+      <button
+        className="bg-white text-black w-[160px] rounded-full h-[40px] hover:bg-gray-300"
+        onClick={() => dispatch(openLoginModal())}
+      >
+        Log In
+      </button>
 
       <Modal
         open={isOpen}
