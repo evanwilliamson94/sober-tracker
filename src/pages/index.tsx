@@ -102,16 +102,18 @@ export default function Home() {
         )}
 
         <div className="relative z-10 text-center text-white p-6 max-w-2xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Take Control of Your Sobriety Journey</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Take Control of Your Sobriety Journey
+          </h1>
           <p className="text-lg md:text-xl mb-8">
-            Start tracking your sobriety, gain support, and stay motivated with
-            daily affirmations tailored to your journey.
+            Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
           </p>
-          <Link href="/tracker" passHref>
-            <span className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
-              Start Tracking Now
-            </span>
-          </Link>
+          <Link href="/tracker">
+  <span className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
+    Start Tracking Now
+  </span>
+</Link>
+
         </div>
       </div>
 
@@ -125,20 +127,50 @@ export default function Home() {
             <div className="p-6 bg-white shadow-lg rounded-lg">
               <h3 className="text-2xl font-bold text-indigo-600">Daily Motivation</h3>
               <p className="mt-4 text-gray-600">
-                Get daily affirmations and motivational quotes tailored to your sobriety journey.
+                Receive daily affirmations and motivational quotes personalized to your sobriety journey.
               </p>
             </div>
             <div className="p-6 bg-white shadow-lg rounded-lg">
               <h3 className="text-2xl font-bold text-indigo-600">Track Your Progress</h3>
               <p className="mt-4 text-gray-600">
-                Stay on top of your progress with personalized tracking and goal-setting features.
+                Stay on top of your recovery milestones with personalized tracking tools and goal-setting features.
               </p>
             </div>
             <div className="p-6 bg-white shadow-lg rounded-lg">
               <h3 className="text-2xl font-bold text-indigo-600">Community Support</h3>
               <p className="mt-4 text-gray-600">
-                Join a community of like-minded individuals committed to their journey of sobriety.
+                Join a community of individuals dedicated to their sobriety journey and support each other.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Subscription Features Section */}
+      <section className="py-20 bg-white text-center">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl font-bold mb-8 text-indigo-600">Get More with Premium</h2>
+          <p className="text-lg text-gray-700 mb-8">
+            Access exclusive features, track longer milestones, and receive custom sobriety rewards with our premium subscription.
+          </p>
+          <div className="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-10">
+            <div className="bg-gray-100 p-8 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Free Plan</h3>
+              <ul className="list-disc text-left text-gray-700 space-y-2">
+                <li>Track your sobriety journey</li>
+                <li>Daily affirmations</li>
+                <li>Community access</li>
+              </ul>
+            </div>
+            <div className="bg-indigo-600 p-8 rounded-lg shadow-lg text-white">
+              <h3 className="text-2xl font-bold mb-4">Premium Plan</h3>
+              <ul className="list-disc text-left space-y-2">
+                <li>All free plan features</li>
+                <li>Advanced tracking tools</li>
+                <li>Custom sobriety milestones</li>
+                <li>Exclusive rewards & badges</li>
+                <li>Priority support</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -149,8 +181,8 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold mb-8">Join the Sober Journey</h2>
           <p className="text-lg mb-8">
-            Whether you&apos;re starting your sobriety journey or maintaining it, Sober Tracker provides the tools and support you need to succeed.
-            Connect with others, stay motivated, and track your progress every step of the way.
+            Whether you&apos;re beginning or maintaining your sobriety journey, Sober Tracker offers the tools and community to support your recovery. 
+            Stay motivated, track your progress, and connect with others on a similar path.
           </p>
           <Link href="/community" passHref>
             <span className="inline-block bg-teal-500 hover:bg-teal-600 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
