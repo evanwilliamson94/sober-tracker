@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { openLoginModal, openSignupModal } from '../redux/modalSlice';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <nav className="bg-gray-900 shadow-md">
@@ -62,6 +65,22 @@ const Navbar = () => {
                 {item.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
               </Link>
             ))}
+
+            {/* Log In and Sign Up Buttons */}
+            <div className="mt-4 flex flex-col space-y-2">
+              <button
+                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
+                onClick={() => dispatch(openLoginModal())}
+              >
+                Log In
+              </button>
+              <button
+                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
+                onClick={() => dispatch(openSignupModal())}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
         </div>
       )}
