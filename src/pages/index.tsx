@@ -84,9 +84,10 @@ export default function Home() {
       />
 
       {/* Banner with Modals */}
-      <Banner />
-      <LoginModal />
-      <SignupModal />
+   {/* <LoginModal /> */}
+{/* <SignupModal /> */}
+{/* <Banner /> */}
+
 
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
