@@ -56,7 +56,7 @@ const Post6 = () => {
           <h2 className="text-3xl font-semibold mb-4">3. Coping Mechanisms</h2>
           <Image src="/images/healthy-coping.jpg" alt="Healthy Coping Mechanisms" width={800} height={400} className="rounded-lg mb-4" />
           <p className="text-lg mb-4">
-            Developing healthy coping mechanisms is essential for preventing relapse and handling life's challenges. In recovery, individuals need to replace harmful habits with constructive ones that support their sobriety.
+            Developing healthy coping mechanisms is essential for preventing relapse and handling life&apos;s challenges. In recovery, individuals need to replace harmful habits with constructive ones that support their sobriety.
           </p>
           <p className="text-lg">
             <strong>Actionable Tips:</strong> Engage in physical activities like running or yoga, explore creative outlets like painting or writing, and use relaxation techniques such as deep breathing or progressive muscle relaxation to cope with stress.
@@ -91,7 +91,7 @@ const Post6 = () => {
         <section>
           <h2 className="text-3xl font-semibold mb-4">Building a Solid Foundation for Recovery</h2>
           <p className="text-lg mb-4">
-            Mastering these five essential skills—independent living, emotional regulation, coping mechanisms, social skills, and communication—will provide you with the tools to succeed in your sobriety journey. Incorporating these into your daily routine will help you face life's challenges with confidence and resilience.
+            Mastering these five essential skills—independent living, emotional regulation, coping mechanisms, social skills, and communication—will provide you with the tools to succeed in your sobriety journey. Incorporating these into your daily routine will help you face life&apos;s challenges with confidence and resilience.
           </p>
           <p className="text-lg mb-4">
             Remember, recovery is a continuous process, and there&apos;s always room for growth. Stay committed, practice patience, and continue building the life you deserve.
