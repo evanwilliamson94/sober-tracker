@@ -14,29 +14,38 @@ const Blog = () => {
 
   return (
     <>
-   <Head>
-  <title>Sober Tracker Blog - Tips for Sober Living & Recovery</title>
-  <meta
-    name="description"
-    content="Get the latest tips and advice on sober living, recovery, and staying motivated during your sobriety journey. Read valuable insights from experts."
-  />
-  <meta
-    name="keywords"
-    content="sobriety blog, recovery tips, sober living, addiction recovery, motivation"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-</Head>
-
-
+      <Head>
+        <title>Sober Tracker Blog - Tips for Sober Living & Recovery</title>
+        <meta
+          name="description"
+          content="Get the latest tips and advice on sober living, recovery, and staying motivated during your sobriety journey. Read valuable insights from experts."
+        />
+        <meta
+          name="keywords"
+          content="sobriety blog, recovery tips, sober living, addiction recovery, motivation"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
 
       <div className="min-h-screen bg-gray-900 text-teal-200 p-6">
-      <h1 className="text-4xl font-bold mb-6 text-center">Sober Tracker Blog</h1>
+        <h1 className="text-4xl font-bold mb-6 text-center">Sober Tracker Blog</h1>
         <p className="text-xl text-center text-white mb-8">
           Read the latest tips and stories on sober living and recovery.
         </p>
 
+        {/* New Blog Post: "Mastering the Five Essential Skills for a Successful Recovery Journey" */}
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+          <h2 className="text-3xl font-semibold mb-4 text-white">Mastering the Five Essential Skills for a Successful Recovery Journey</h2>
+          <p className="text-lg mb-4 text-white">
+            Addiction recovery is a lifelong journey that requires dedication, support, and personal growth. Enhancing these five essential skills will help you thrive in independent living and emotional stability.
+          </p>
+          <Link href="/blogs/post-6" className="text-white hover:text-teal-300">
+            Read More →
+          </Link>
+        </div>
+
+        {/* Loading Effect */}
         {isLoading ? (
-          // Skeleton loading effect
           <div className="space-y-8 max-w-4xl mx-auto">
             {[...Array(5)].map((_, i) => (
               <div key={i} className="bg-gray-800 p-6 rounded-lg shadow-lg">
@@ -47,7 +56,7 @@ const Blog = () => {
             ))}
           </div>
         ) : (
-          // Blog Post List
+          // Existing Blog Post List
           <div className="space-y-8 max-w-4xl mx-auto">
             <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
               <h2 className="text-3xl font-semibold mb-4 text-white">5 Tips for Staying Sober After Rehab</h2>
@@ -106,4 +115,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
