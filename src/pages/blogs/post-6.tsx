@@ -30,7 +30,7 @@ const Post6 = () => {
         {/* Independent Living Skills Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4">1. Independent Living Skills</h2>
-          <Image src="/images/budget-planning.jpg" alt="Organizing Budget" width={800} height={400} className="rounded-lg mb-4" />
+          <Image src="/budget-planning.png" alt="Organizing Budget" width={800} height={400} className="rounded-lg mb-4" />
           <p className="text-lg mb-4">
             Independent living skills are vital for everyone, but they hold particular importance for those in recovery. These skills enable individuals to manage daily tasks like budgeting, organizing their home, and maintaining personal health. Often, these skills are lost during addiction, making it crucial to relearn or improve them in recovery.
           </p>
@@ -42,7 +42,7 @@ const Post6 = () => {
         {/* Control of Emotions Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4">2. Control of Emotions</h2>
-          <Image src="/images/emotion-control.jpg" alt="Control of Emotions" width={800} height={400} className="rounded-lg mb-4" />
+          <Image src="/emotion-control.png" alt="Control of Emotions" width={800} height={400} className="rounded-lg mb-4" />
           <p className="text-lg mb-4">
             Emotional regulation is often one of the biggest challenges in recovery. Those recovering from addiction need to learn how to control emotional responses and deal with stress, frustration, and sadness in a healthy way, without turning to substances.
           </p>
@@ -54,7 +54,7 @@ const Post6 = () => {
         {/* Coping Mechanisms Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4">3. Coping Mechanisms</h2>
-          <Image src="/images/healthy-coping.jpg" alt="Healthy Coping Mechanisms" width={800} height={400} className="rounded-lg mb-4" />
+          <Image src="/coping.png" alt="Healthy Coping Mechanisms" width={800} height={400} className="rounded-lg mb-4" />
           <p className="text-lg mb-4">
             Developing healthy coping mechanisms is essential for preventing relapse and handling life&apos;s challenges. In recovery, individuals need to replace harmful habits with constructive ones that support their sobriety.
           </p>
@@ -66,7 +66,7 @@ const Post6 = () => {
         {/* Social Skills Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4">4. Social Skills</h2>
-          <Image src="/images/social-skills.jpg" alt="Building Social Skills" width={800} height={400} className="rounded-lg mb-4" />
+          <Image src="/social-skills.png" alt="Building Social Skills" width={800} height={400} className="rounded-lg mb-4" />
           <p className="text-lg mb-4">
             Building and maintaining strong social relationships is crucial in recovery. Social skills can help you reconnect with loved ones and build new, positive relationships that will support your sobriety.
           </p>
@@ -78,7 +78,7 @@ const Post6 = () => {
         {/* Communication Skills Section */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4">5. Communication Skills</h2>
-          <Image src="/images/effective-communication.jpg" alt="Effective Communication" width={800} height={400} className="rounded-lg mb-4" />
+          <Image src="/communication-skills.png" alt="Effective Communication" width={800} height={400} className="rounded-lg mb-4" />
           <p className="text-lg mb-4">
             Clear and effective communication is key to resolving conflicts and building strong relationships in recovery. Learning to express your thoughts and needs assertively, without aggression or passivity, can help prevent misunderstandings and foster healthier interactions.
           </p>
