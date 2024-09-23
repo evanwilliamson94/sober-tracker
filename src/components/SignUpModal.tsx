@@ -9,9 +9,9 @@ import { RootState } from "../redux/store"; // Import the RootState type
 import { FirebaseError } from "firebase/app"; // Import FirebaseError type
 
 export default function SignupModal() {
-  const isOpen = useSelector((state: RootState) => state.modals.signupModalOpen); // Properly type useSelector
+  const isOpen = useSelector((state: RootState) => state.modals.signupModalOpen);
   const dispatch = useDispatch();
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -20,6 +20,7 @@ export default function SignupModal() {
   const [startDate, setStartDate] = useState<string>("");
   const [motivation, setMotivation] = useState<string>("");
   const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Add loading state
 
   async function handleSignUp() {
     if (!auth) {
@@ -33,7 +34,9 @@ export default function SignupModal() {
         return;
       }
 
-      // Sign up user, but we don't need to store userCredential since it's not used later
+      setIsLoading(true); // Set loading state
+
+      // Sign up the user
       await createUserWithEmailAndPassword(auth, email, password);
 
       // Optionally save additional data such as goal, startDate, motivation, etc.
@@ -43,9 +46,8 @@ export default function SignupModal() {
 
       // Redirect to dashboard after successful signup
       router.push("/dashboard");
-
     } catch (error) {
-      // Type the error as FirebaseError
+      // Handle FirebaseError
       if (error instanceof FirebaseError) {
         console.error("Error signing up: ", error.message);
         alert("There was an error signing up: " + error.message);
@@ -53,6 +55,8 @@ export default function SignupModal() {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      setIsLoading(false); // Stop loading state after completion
     }
   }
 
@@ -120,10 +124,13 @@ export default function SignupModal() {
         </label>
 
         <button
-          className="bg-white text-black w-full rounded-md py-2 mt-4 font-bold"
+          className={`w-full rounded-md py-2 mt-4 font-bold ${
+            isLoading ? "bg-gray-500" : "bg-white text-black"
+          }`}
           onClick={handleSignUp}
+          disabled={isLoading} // Disable button when loading
         >
-          Create Account
+          {isLoading ? "Signing Up..." : "Create Account"}
         </button>
       </div>
     </Modal>
