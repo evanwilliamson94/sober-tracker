@@ -2,9 +2,6 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
-
-
-
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -18,6 +15,6 @@ const firebaseConfig = {
 // Check if any Firebase apps have been initialized before initializing a new one
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Only initialize analytics and auth if we're in the browser
+// Initialize Firebase Auth and Analytics
 export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
-export const auth = typeof window !== "undefined" ? getAuth(app) : null;
+export const auth = typeof window !== "undefined" ? getAuth(app) : getAuth(); // Always return auth in the browser
