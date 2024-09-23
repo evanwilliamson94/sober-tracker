@@ -1,11 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { openLoginModal, openSignupModal } from '../redux/modalSlice';
+import { auth } from '../firebase'; // Import Firebase Auth
+import { onAuthStateChanged, User } from 'firebase/auth'; // Import Firebase Auth types
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null); // Local state for tracking user
   const dispatch = useDispatch();
+
+  // Firebase auth state listener to check if the user is logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser); // Set user if authenticated
+    });
+
+    // Cleanup the listener on component unmount
+    return () => unsubscribe();
+  }, []);
 
   return (
     <nav className="bg-gray-900 shadow-md">
@@ -23,6 +36,14 @@ const Navbar = () => {
                 <span className="block w-full h-1 bg-gold-500 absolute left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </Link>
             ))}
+
+            {/* Conditionally render the Dashboard link if user is logged in */}
+            {user && (
+              <Link href="/dashboard" className="text-gray-200 hover:text-gold-500 transition-colors relative group">
+                <span>Dashboard</span>
+                <span className="block w-full h-1 bg-gold-500 absolute left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+            )}
           </div>
           {/* Mobile burger menu */}
           <div className="-mr-2 flex md:hidden">
@@ -66,21 +87,45 @@ const Navbar = () => {
               </Link>
             ))}
 
+            {/* Conditionally render Dashboard link if user is logged in */}
+            {user && (
+              <Link href="/dashboard" className="text-gray-200 block px-3 py-2 rounded-md text-base font-medium hover:text-gold-500">
+                Dashboard
+              </Link>
+            )}
+
             {/* Log In and Sign Up Buttons */}
-            <div className="mt-4 flex flex-col space-y-2">
-              <button
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
-                onClick={() => dispatch(openLoginModal())}
-              >
-                Log In
-              </button>
-              <button
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
-                onClick={() => dispatch(openSignupModal())}
-              >
-                Sign Up
-              </button>
-            </div>
+            {!user && (
+              <div className="mt-4 flex flex-col space-y-2">
+                <button
+                  className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
+                  onClick={() => dispatch(openLoginModal())}
+                >
+                  Log In
+                </button>
+                <button
+                  className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
+                  onClick={() => dispatch(openSignupModal())}
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+
+            {/* Conditionally render Log Out button if user is logged in */}
+            {user && (
+              <div className="mt-4 flex flex-col space-y-2">
+                <button
+                  className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500"
+                  onClick={() => {
+                    auth.signOut(); // Log out the user
+                    setUser(null); // Clear user state
+                  }}
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
