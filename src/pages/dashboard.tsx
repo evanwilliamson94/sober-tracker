@@ -1,3 +1,5 @@
+// src/pages/dashboard.tsx
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { auth } from "../firebase"; // Firebase Auth import

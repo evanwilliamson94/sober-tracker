@@ -5,17 +5,18 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
-import { RootState } from "../redux/store"; // Import the RootState type
-import { FirebaseError } from "firebase/app"; // Import FirebaseError type
+import { RootState } from "../redux/store";
+import { FirebaseError } from "firebase/app";
 
 export default function LoginModal() {
-  const isOpen = useSelector((state: RootState) => state.modals.loginModalOpen); // Properly type useSelector
+  const isOpen = useSelector((state: RootState) => state.modals.loginModalOpen);
   const dispatch = useDispatch();
   const router = useRouter();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  // Function to handle login
   async function handleSignIn() {
     if (!auth) {
       console.error("Firebase auth is not initialized");
@@ -30,28 +31,21 @@ export default function LoginModal() {
 
       // Redirect to the dashboard
       router.push("/dashboard");
-
     } catch (error) {
-      // Type the error as FirebaseError and handle specific cases
       if (error instanceof FirebaseError) {
-        switch (error.code) {
-          case 'auth/invalid-email':
-            alert("Invalid email format. Please check your email.");
-            break;
-          case 'auth/user-not-found':
-            alert("No user found with this email. Please sign up first.");
-            break;
-          case 'auth/wrong-password':
-            alert("Incorrect password. Please try again.");
-            break;
-          default:
-            console.error("Error signing in: ", error.message);
-            alert("There was an error signing in: " + error.message);
-        }
+        console.error("Error signing in: ", error.message);
+        alert("There was an error signing in: " + error.message);
       } else {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred. Please try again.");
       }
+    }
+  }
+
+  // Function to handle keypress event
+  function handleKeyPress(event: React.KeyboardEvent) {
+    if (event.key === "Enter") {
+      handleSignIn(); // Trigger the sign-in function when Enter is pressed
     }
   }
 
@@ -71,6 +65,7 @@ export default function LoginModal() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onKeyPress={handleKeyPress} // Add event listener for "Enter" key
         />
         <input
           placeholder="Password"
@@ -78,10 +73,11 @@ export default function LoginModal() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress} // Add event listener for "Enter" key
         />
         <button
           className="bg-white text-black w-full rounded-md py-2 font-bold"
-          onClick={handleSignIn}
+          onClick={handleSignIn} // Handle login when button is clicked
         >
           Sign In
         </button>
