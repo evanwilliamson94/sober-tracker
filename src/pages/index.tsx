@@ -6,7 +6,8 @@ import Script from 'next/script';
 import LoginModal from "@components/LoginModal";
 import SignupModal from "../components/SignUpModal";
 import Banner from "@components/Banner";
-
+import { auth } from "../firebase"; // Firebase Auth import
+import { onAuthStateChanged, User } from "firebase/auth"; // Firebase User type
 
 // Extend the window object to include gtag in TypeScript
 declare global {
@@ -17,6 +18,17 @@ declare global {
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null); // Local state for tracking Firebase user
+
+  // Check if user is logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser); // Update user state if logged in
+    });
+
+    // Cleanup Firebase auth listener on component unmount
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,7 +63,6 @@ export default function Home() {
           name="keywords"
           content="sobriety tracker, sober support, addiction recovery, daily motivation, sobriety community"
         />
-        {/* Open Graph meta tags for social media sharing */}
         <meta property="og:title" content="Stay Sober Tracker - Track Your Sobriety Journey" />
         <meta property="og:description" content="Join the journey to sobriety with our personalized tracker, community support, and daily affirmations tailored to your goals." />
         <meta property="og:image" content="/Sober-tracker-background2.png" />
@@ -83,10 +94,18 @@ export default function Home() {
         }}
       />
 
-      {/* Banner with Modals */}
-      <Banner />
-      <LoginModal />
-      <SignupModal />
+      {/* Conditionally render Banner and Modals only if user is not logged in */}
+      {!user ? (
+        <>
+          <Banner />
+          <LoginModal />
+          <SignupModal />
+        </>
+      ) : (
+        <div className="welcome-back">
+          <h1 className="text-center text-4xl font-bold">Welcome Back!</h1>
+        </div>
+      )}
 
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
@@ -118,12 +137,11 @@ export default function Home() {
             Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
           </p>
           <Link 
-  href="/tracker" 
-  className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
->
-  Start Tracking Now
-</Link>
-
+            href="/tracker" 
+            className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
+          >
+            Start Tracking Now
+          </Link>
         </div>
       </div>
 
@@ -197,12 +215,11 @@ export default function Home() {
             Stay motivated, track your progress, and connect with others on a similar path.
           </p>
           <Link 
-  href="/community" 
-  className="inline-block bg-teal-500 hover:bg-teal-600 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
->
-  Join the Community
-</Link>
-
+            href="/community" 
+            className="inline-block bg-teal-500 hover:bg-teal-600 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
+          >
+            Join the Community
+          </Link>
         </div>
       </section>
     </>
