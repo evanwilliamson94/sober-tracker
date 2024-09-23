@@ -15,6 +15,7 @@ export default function LoginModal() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Add loading state
 
   // Function to handle login
   async function handleSignIn() {
@@ -24,6 +25,8 @@ export default function LoginModal() {
     }
 
     try {
+      setIsLoading(true); // Set loading state to true during login attempt
+
       await signInWithEmailAndPassword(auth, email, password);
 
       // Close the login modal after successful sign-in
@@ -39,6 +42,8 @@ export default function LoginModal() {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      setIsLoading(false); // Stop loading state after login attempt
     }
   }
 
@@ -56,9 +61,7 @@ export default function LoginModal() {
       className="flex justify-center items-center"
     >
       <div className="w-[90%] max-w-md h-auto bg-black text-white border border-gray-700 rounded-lg p-6">
-        <h1 className="text-center text-3xl font-bold mb-6">
-          Sign into your account
-        </h1>
+        <h1 className="text-center text-3xl font-bold mb-6">Sign into your account</h1>
         <input
           placeholder="Email"
           className="w-full h-10 rounded-md bg-transparent border border-gray-700 p-4 mb-4"
@@ -76,10 +79,13 @@ export default function LoginModal() {
           onKeyPress={handleKeyPress} // Add event listener for "Enter" key
         />
         <button
-          className="bg-white text-black w-full rounded-md py-2 font-bold"
-          onClick={handleSignIn} // Handle login when button is clicked
+          className={`w-full rounded-md py-2 font-bold ${
+            isLoading ? "bg-gray-500" : "bg-white text-black"
+          }`}
+          onClick={handleSignIn}
+          disabled={isLoading} // Disable button when loading
         >
-          Sign In
+          {isLoading ? "Signing In..." : "Sign In"}
         </button>
       </div>
     </Modal>
