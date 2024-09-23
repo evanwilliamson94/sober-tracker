@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { Chart } from 'chart.js/auto';
 
 // Sample Motivational Quotes for Each Day
 const dailyQuotes = [
@@ -19,9 +18,6 @@ const Tracker = () => {
   const [quote, setQuote] = useState('');
   const [selectedGoal, setSelectedGoal] = useState(30);
   const [currentDate, setCurrentDate] = useState('');
-  const [moodHistory, setMoodHistory] = useState<{ date: string, mood: string }[]>([]);
-  const chartRef = useRef<HTMLCanvasElement | null>(null);
-  const [chartInstance, setChartInstance] = useState<Chart | null>(null);
 
   // Function to generate quote based on the current date
   const getDailyQuote = () => {
