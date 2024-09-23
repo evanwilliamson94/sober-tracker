@@ -1,26 +1,16 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import { auth } from "../firebase"; // Firebase Auth import
-import { onAuthStateChanged, User } from "firebase/auth"; // Firebase User type
-import { RootState } from "../redux/store"; // RootState import
+import { onAuthStateChanged } from "firebase/auth"; // Firebase User type
 
 export default function Dashboard() {
   const router = useRouter();
-  
-  // Select user from Redux state
-  const reduxUser = useSelector((state: RootState) => state.auth.user); 
-  
   const [loading, setLoading] = useState(true); // Handle loading state
-  const [user, setUser] = useState<User | null>(null); // Local state for Firebase user
 
   // Firebase auth state listener to check if the user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        // Set user from Firebase Auth
-        setUser(firebaseUser);
-      } else {
+      if (!firebaseUser) {
         // Redirect to login if not authenticated
         router.push("/login");
       }
