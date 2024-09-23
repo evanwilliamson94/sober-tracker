@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
+import { useRouter } from "next/router"; // Import useRouter for navigation
 import { RootState } from "../redux/store"; // Import the RootState type
 
 export default function SignupModal() {
   const isOpen = useSelector((state: RootState) => state.modals.signupModalOpen); // Properly type useSelector
   const dispatch = useDispatch();
+  const router = useRouter(); // Initialize the router
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -26,13 +28,22 @@ export default function SignupModal() {
 
     try {
       if (agreeToTerms) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
         // Additional logic to save 'goal', 'startDate', and 'motivation' can be implemented here
+
+        // Close the modal after successful signup
+        dispatch(closeSignupModal());
+
+        // Redirect to dashboard after successful signup
+        router.push("/dashboard");
       } else {
         alert("Please agree to the Terms and Conditions");
       }
     } catch (error) {
       console.error("Error signing up: ", error);
+      alert("There was an error signing up. Please try again.");
     }
   }
 
