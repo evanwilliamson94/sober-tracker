@@ -6,6 +6,7 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { useRouter } from "next/router"; // Import useRouter for navigation
 import { RootState } from "../redux/store"; // Import the RootState type
+import { FirebaseError } from "firebase/app"; // Import FirebaseError type
 
 export default function SignupModal() {
   const isOpen = useSelector((state: RootState) => state.modals.signupModalOpen); // Properly type useSelector
@@ -32,7 +33,8 @@ export default function SignupModal() {
         return;
       }
 
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Sign up user, but we don't need to store userCredential since it's not used later
+      await createUserWithEmailAndPassword(auth, email, password);
 
       // Optionally save additional data such as goal, startDate, motivation, etc.
 
@@ -42,9 +44,15 @@ export default function SignupModal() {
       // Redirect to dashboard after successful signup
       router.push("/dashboard");
 
-    } catch (error: any) { // Ensure that error is correctly typed
-      console.error("Error signing up: ", error.message);
-      alert("There was an error signing up. Please try again.");
+    } catch (error) {
+      // Type the error as FirebaseError
+      if (error instanceof FirebaseError) {
+        console.error("Error signing up: ", error.message);
+        alert("There was an error signing up: " + error.message);
+      } else {
+        console.error("Unexpected error:", error);
+        alert("An unexpected error occurred. Please try again.");
+      }
     }
   }
 
