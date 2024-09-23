@@ -32,10 +32,22 @@ export default function LoginModal() {
       router.push("/dashboard");
 
     } catch (error) {
-      // Type the error as FirebaseError
+      // Type the error as FirebaseError and handle specific cases
       if (error instanceof FirebaseError) {
-        console.error("Error signing in: ", error.message);
-        alert("There was an error signing in: " + error.message);
+        switch (error.code) {
+          case 'auth/invalid-email':
+            alert("Invalid email format. Please check your email.");
+            break;
+          case 'auth/user-not-found':
+            alert("No user found with this email. Please sign up first.");
+            break;
+          case 'auth/wrong-password':
+            alert("Incorrect password. Please try again.");
+            break;
+          default:
+            console.error("Error signing in: ", error.message);
+            alert("There was an error signing in: " + error.message);
+        }
       } else {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred. Please try again.");
