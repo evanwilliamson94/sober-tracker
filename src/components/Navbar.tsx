@@ -114,26 +114,30 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* Conditionally render Log Out button if user is logged in */}
-            {user && (
-              <div className="mt-4 flex flex-col space-y-2">
-                <button
-                  className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500"
-                  onClick={() => {
-                    signOut(auth)
-                      .then(() => {
-                        setUser(null); // Clear user state
-                        router.push("/"); // Redirect to homepage after log out
-                      })
-                      .catch((error) => {
-                        console.error("Error signing out: ", error);
-                      });
-                  }}
-                >
-                  Log Out
-                </button>
-              </div>
-            )}
+           {/* Conditionally render Log Out button if user is logged in */}
+{user && (
+  <div className="mt-4 flex flex-col space-y-2">
+    <button
+      className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500"
+      onClick={() => {
+        // Redirect to homepage first, then sign out
+        router.push("/").then(() => {
+          signOut(auth)
+            .then(() => {
+              setUser(null); // Clear user state
+              router.reload(); // Reload the page to refresh state
+            })
+            .catch((error) => {
+              console.error("Error signing out: ", error);
+            });
+        });
+      }}
+    >
+      Log Out
+    </button>
+  </div>
+)}
+
           </div>
         </div>
       )}
