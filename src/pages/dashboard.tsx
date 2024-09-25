@@ -8,8 +8,16 @@ import { RootState } from "../redux/store";
 import { setUser, clearUser } from "../redux/authSlice";
 import Image from "next/image"; // Next.js Image component
 
+// Define a type for the post
+interface Post {
+  id: string;
+  title: string;
+  description: string;
+  userId: string; // Assuming there's a userId field in your posts
+}
+
 export default function Dashboard() {
-  const [userPosts, setUserPosts] = useState([]); // Store user's posts
+  const [userPosts, setUserPosts] = useState<Post[]>([]); // Define posts with the Post type
   const [loading, setLoading] = useState(true); // Loading state
   const user = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
@@ -21,10 +29,10 @@ export default function Dashboard() {
       const q = query(collection(firestore, "posts"), where("userId", "==", userId));
       const querySnapshot = await getDocs(q);
 
-      const posts = querySnapshot.docs.map((doc) => ({
+      const posts: Post[] = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
+      })) as Post[]; // Ensure it's typed as Post[]
 
       setUserPosts(posts); // Set the retrieved posts
     } catch (error) {
