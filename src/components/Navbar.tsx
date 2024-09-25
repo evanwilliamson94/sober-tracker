@@ -3,12 +3,14 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { openLoginModal, openSignupModal } from '../redux/modalSlice';
 import { auth } from '../firebase'; // Import Firebase Auth
-import { onAuthStateChanged, User } from 'firebase/auth'; // Import Firebase Auth types
+import { onAuthStateChanged, User, signOut } from 'firebase/auth'; // Import Firebase Auth methods
+import { useRouter } from 'next/router'; // Import useRouter for redirect
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null); // Local state for tracking user
   const dispatch = useDispatch();
+  const router = useRouter(); // Initialize router for redirect
 
   // Firebase auth state listener to check if the user is logged in
   useEffect(() => {
@@ -118,8 +120,14 @@ const Navbar = () => {
                 <button
                   className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500"
                   onClick={() => {
-                    auth.signOut(); // Log out the user
-                    setUser(null); // Clear user state
+                    signOut(auth)
+                      .then(() => {
+                        setUser(null); // Clear user state
+                        router.push("/"); // Redirect to homepage after log out
+                      })
+                      .catch((error) => {
+                        console.error("Error signing out: ", error);
+                      });
                   }}
                 >
                   Log Out
