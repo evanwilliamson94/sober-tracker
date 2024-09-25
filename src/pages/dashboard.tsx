@@ -6,11 +6,10 @@ import { collection, getDocs, query, where } from "firebase/firestore"; // Fires
 import { auth, firestore } from "../firebase"; // Firestore instance and Auth import
 import { RootState } from "../redux/store";
 import { setUser, clearUser } from "../redux/authSlice";
+import Image from "next/image"; // Next.js Image component
 
 export default function Dashboard() {
   const [userPosts, setUserPosts] = useState([]); // Store user's posts
-  const [followers, setFollowers] = useState(0); // Placeholder for followers count
-  const [following, setFollowing] = useState(0); // Placeholder for following count
   const [loading, setLoading] = useState(true); // Loading state
   const user = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
@@ -68,22 +67,16 @@ export default function Dashboard() {
       {/* Profile Section */}
       <div className="bg-white shadow-lg rounded-lg w-full max-w-2xl p-6 mb-6">
         <div className="flex items-center">
-          <img
+          <Image
             src={user?.photoURL || "/default-profile.png"}
             alt="Profile Picture"
-            className="w-16 h-16 rounded-full"
+            width={64} // Replace with appropriate dimensions
+            height={64}
+            className="rounded-full"
           />
           <div className="ml-4">
             <h1 className="text-2xl font-bold">{user?.displayName || "User Name"}</h1>
             <p className="text-gray-500">Sobriety Goal: {user?.goal || "Set your goal"}</p>
-          </div>
-        </div>
-        <div className="flex justify-between mt-4">
-          <div>
-            <span className="font-semibold">{followers}</span> Followers
-          </div>
-          <div>
-            <span className="font-semibold">{following}</span> Following
           </div>
         </div>
         <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg">Edit Profile</button>
@@ -93,7 +86,7 @@ export default function Dashboard() {
       <div className="w-full max-w-2xl">
         <h2 className="text-xl font-bold mb-4">Your Posts</h2>
         {userPosts.length === 0 ? (
-          <p className="text-gray-500">You haven't posted anything yet!</p>
+          <p className="text-gray-500">You haven&apos;t posted anything yet!</p> {/* Fix unescaped apostrophe */}
         ) : (
           userPosts.map((post) => (
             <div key={post.id} className="bg-white shadow-lg rounded-lg p-4 mb-4">
