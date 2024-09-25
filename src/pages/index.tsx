@@ -109,41 +109,43 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
-        {isLoading ? (
-          // Skeleton loading effect with flex column layout
-          <div className="flex flex-col items-center justify-center w-full h-full space-y-6">
-            <div className="bg-gray-300 animate-pulse w-3/4 h-12 rounded-md"></div> {/* Simulate title */}
-            <div className="bg-gray-300 animate-pulse w-1/2 h-6 rounded-md"></div> {/* Simulate description */}
-            <div className="bg-gray-300 animate-pulse w-1/4 h-10 rounded-md"></div> {/* Simulate button */}
-          </div>
-        ) : (
-          <>
-            <Image
-              src="/Sober-tracker-background2.png"
-              alt="Sober Tracker Background"
-              layout="fill"
-              objectFit="cover"
-              onLoadingComplete={() => setIsLoading(false)}
-            />
-            <div className="bg-black bg-opacity-40 absolute inset-0 z-1"></div>
-          </>
-        )}
+  {isLoading ? (
+    // Skeleton loading effect with flex column layout
+    <div className="flex flex-col items-center justify-center w-full h-full space-y-6">
+      <div className="bg-gray-300 animate-pulse w-3/4 h-12 rounded-md"></div> {/* Simulate title */}
+      <div className="bg-gray-300 animate-pulse w-1/2 h-6 rounded-md"></div> {/* Simulate description */}
+      <div className="bg-gray-300 animate-pulse w-1/4 h-10 rounded-md"></div> {/* Simulate button */}
+    </div>
+  ) : (
+    <>
+      <Image
+        src="/Sober-tracker-background2.png"
+        alt="Sober Tracker Background"
+        layout="fill"
+        objectFit="cover"
+        onLoadingComplete={() => setIsLoading(false)}
+      />
+      <div className="bg-black bg-opacity-40 absolute inset-0 z-1"></div>
 
-        <div className="relative z-10 text-center text-white p-4 sm:p-6 max-w-xl sm:max-w-2xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            Take Control of Your Sobriety Journey
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl mb-8">
-            Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
-          </p>
-          <Link 
-            href="/tracker" 
-            className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
-          >
-            Start Tracking Now
-          </Link>
-        </div>
+      {/* Only show the content when loading is complete */}
+      <div className="relative z-10 text-center text-white p-4 sm:p-6 max-w-xl sm:max-w-2xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+          Take Control of Your Sobriety Journey
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl mb-8">
+          Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
+        </p>
+        <Link 
+          href="/tracker" 
+          className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
+        >
+          Start Tracking Now
+        </Link>
       </div>
+    </>
+  )}
+</div>
+
 
       {/* Features Section */}
       <section className="py-16 bg-gray-100">
