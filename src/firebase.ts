@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore"; // Firestore import
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,9 +13,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Check if any Firebase apps have been initialized before initializing a new one
+// Initialize Firebase App
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Initialize Firebase Auth and Analytics
+// Initialize Firebase Auth, Analytics, and Firestore
+export const auth = typeof window !== "undefined" ? getAuth(app) : getAuth();
 export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
-export const auth = typeof window !== "undefined" ? getAuth(app) : getAuth(); // Always return auth in the browser
+export const firestore = getFirestore(app); // Firestore instance

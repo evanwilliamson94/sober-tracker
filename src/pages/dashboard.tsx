@@ -1,43 +1,107 @@
-// src/pages/dashboard.tsx
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../firebase"; // Firebase Auth import
-import { onAuthStateChanged } from "firebase/auth"; // Firebase User type
+import { useDispatch, useSelector } from "react-redux";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore"; // Firestore methods
+import { auth, firestore } from "../firebase"; // Firestore instance and Auth import
+import { RootState } from "../redux/store";
+import { setUser, clearUser } from "../redux/authSlice";
 
 export default function Dashboard() {
+  const [userPosts, setUserPosts] = useState([]); // Store user's posts
+  const [followers, setFollowers] = useState(0); // Placeholder for followers count
+  const [following, setFollowing] = useState(0); // Placeholder for following count
+  const [loading, setLoading] = useState(true); // Loading state
+  const user = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
-  const [loading, setLoading] = useState(true); // Handle loading state
+  const dispatch = useDispatch();
 
-  // Firebase auth state listener to check if the user is logged in
+  // Fetch user's posts from Firestore
+  const fetchUserPosts = async (userId: string) => {
+    try {
+      const q = query(collection(firestore, "posts"), where("userId", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      const posts = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setUserPosts(posts); // Set the retrieved posts
+    } catch (error) {
+      console.error("Error fetching posts: ", error);
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (!firebaseUser) {
-        // Redirect to login if not authenticated
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
+      if (firebaseUser) {
+        // Set user data in Redux
+        dispatch(
+          setUser({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email!,
+            photoURL: firebaseUser.photoURL || "/default-profile.png", // Default profile picture
+            displayName: firebaseUser.displayName || "Anonymous User",
+            goal: "30 Days" // Placeholder for the goal, you can fetch this from Firestore later
+          })
+        );
+
+        // Fetch user posts from Firestore
+        await fetchUserPosts(firebaseUser.uid);
+      } else {
+        dispatch(clearUser());
         router.push("/login");
       }
       setLoading(false); // Stop the loading state
     });
 
-    // Cleanup the listener on component unmount
     return () => unsubscribe();
-  }, [router]);
+  }, [dispatch, router]);
 
-  // Show loading state until authentication is checked
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Once authenticated, render the dashboard
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white p-4 sm:p-6">
-      <div className="text-center max-w-md sm:max-w-lg mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-          Welcome to Your Dashboard!
-        </h1>
-        <p className="text-lg sm:text-xl md:text-2xl mb-4">
-          This is where you can track your sobriety progress, goals, and more.
-        </p>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
+      {/* Profile Section */}
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-2xl p-6 mb-6">
+        <div className="flex items-center">
+          <img
+            src={user?.photoURL || "/default-profile.png"}
+            alt="Profile Picture"
+            className="w-16 h-16 rounded-full"
+          />
+          <div className="ml-4">
+            <h1 className="text-2xl font-bold">{user?.displayName || "User Name"}</h1>
+            <p className="text-gray-500">Sobriety Goal: {user?.goal || "Set your goal"}</p>
+          </div>
+        </div>
+        <div className="flex justify-between mt-4">
+          <div>
+            <span className="font-semibold">{followers}</span> Followers
+          </div>
+          <div>
+            <span className="font-semibold">{following}</span> Following
+          </div>
+        </div>
+        <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg">Edit Profile</button>
+      </div>
+
+      {/* User Posts Section */}
+      <div className="w-full max-w-2xl">
+        <h2 className="text-xl font-bold mb-4">Your Posts</h2>
+        {userPosts.length === 0 ? (
+          <p className="text-gray-500">You haven't posted anything yet!</p>
+        ) : (
+          userPosts.map((post) => (
+            <div key={post.id} className="bg-white shadow-lg rounded-lg p-4 mb-4">
+              <h3 className="font-bold">{post.title}</h3>
+              <p>{post.description}</p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

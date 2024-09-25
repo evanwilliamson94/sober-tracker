@@ -5,6 +5,9 @@ interface AuthState {
   user: {
     uid: string;
     email: string;
+    photoURL?: string; // Optional fields
+    displayName?: string;
+    goal?: string;     // This is specific to the sobriety goal
   } | null;
 }
 
@@ -19,7 +22,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     // Action to set the user when logged in
-    setUser: (state, action: PayloadAction<{ uid: string; email: string }>) => {
+    setUser: (state, action: PayloadAction<{ uid: string; email: string; photoURL?: string; displayName?: string; goal?: string }>) => {
       state.user = action.payload;
     },
     // Action to clear the user when logged out
