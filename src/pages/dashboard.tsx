@@ -86,7 +86,7 @@ export default function Dashboard() {
       <div className="w-full max-w-2xl">
         <h2 className="text-xl font-bold mb-4">Your Posts</h2>
         {userPosts.length === 0 ? (
-          <p className="text-gray-500">You haven&apos;t posted anything yet!</p> {/* Fix unescaped apostrophe */}
+          <p className="text-gray-500">You haven&apos;t posted anything yet!</p> 
         ) : (
           userPosts.map((post) => (
             <div key={post.id} className="bg-white shadow-lg rounded-lg p-4 mb-4">
