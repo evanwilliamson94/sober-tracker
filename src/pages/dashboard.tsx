@@ -16,9 +16,19 @@ interface Post {
   userId: string; // Assuming there's a userId field in your posts
 }
 
+// Placeholder to calculate days sober
+const calculateDaysSober = (startDate: string): number => {
+  const start = new Date(startDate);
+  const today = new Date();
+  const differenceInTime = today.getTime() - start.getTime();
+  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+  return Math.floor(differenceInDays);
+};
+
 export default function Dashboard() {
   const [userPosts, setUserPosts] = useState<Post[]>([]); // Define posts with the Post type
   const [loading, setLoading] = useState(true); // Loading state
+  const [daysSober, setDaysSober] = useState<number>(0); // Track days sober
   const user = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -50,9 +60,12 @@ export default function Dashboard() {
             email: firebaseUser.email!,
             photoURL: firebaseUser.photoURL || "/default-profile.png", // Default profile picture
             displayName: firebaseUser.displayName || "Anonymous User",
-            goal: "30 Days" // Placeholder for the goal, you can fetch this from Firestore later
+            goal: "30 Days", // Placeholder for the goal
           })
         );
+
+        // Calculate days sober - adjust with actual date if you have it
+        setDaysSober(calculateDaysSober("2024-01-01")); // Example: sobriety started Jan 1, 2024
 
         // Fetch user posts from Firestore
         await fetchUserPosts(firebaseUser.uid);
@@ -73,25 +86,26 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
       {/* Profile Section */}
-      <div className="bg-white shadow-lg rounded-lg w-full max-w-2xl p-6 mb-6">
-        <div className="flex items-center">
-          <Image
-            src={user?.photoURL || "/default-profile.png"}
-            alt="Profile Picture"
-            width={64} // Replace with appropriate dimensions
-            height={64}
-            className="rounded-full"
-          />
-          <div className="ml-4">
-            <h1 className="text-2xl font-bold">{user?.displayName || "User Name"}</h1>
-            <p className="text-gray-500">Sobriety Goal: {user?.goal || "Set your goal"}</p>
-          </div>
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mb-8 flex flex-col md:flex-row items-center md:items-start">
+        <Image
+          src={user?.photoURL || "/default-profile.png"}
+          alt="Profile Picture"
+          width={100} // Larger profile picture
+          height={100}
+          className="rounded-full border border-gray-300"
+        />
+        <div className="ml-0 md:ml-6 mt-4 md:mt-0 text-center md:text-left">
+          <h1 className="text-3xl font-bold text-gray-800">{user?.displayName || "User Name"}</h1>
+          <p className="text-lg text-gray-600">Sobriety Goal: {user?.goal || "Set your goal"}</p>
+          <p className="text-lg text-gray-600">Days Sober: <strong>{daysSober}</strong></p>
+          <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+            Edit Profile
+          </button>
         </div>
-        <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg">Edit Profile</button>
       </div>
 
       {/* User Posts Section */}
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-3xl">
         <h2 className="text-xl font-bold mb-4">Your Posts</h2>
         {userPosts.length === 0 ? (
           <p className="text-gray-500">You haven&apos;t posted anything yet!</p> 
