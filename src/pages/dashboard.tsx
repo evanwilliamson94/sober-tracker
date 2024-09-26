@@ -98,7 +98,7 @@ export default function Dashboard() {
 
       uploadTask.on(
         "state_changed",
-        (snapshot) => {
+        () => {
           // Optional: Track upload progress here
         },
         (error) => {

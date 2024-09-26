@@ -6,6 +6,7 @@ import { firestore, storage } from "../firebase"; // Firestore and Storage impor
 import { RootState } from "../redux/store"; // Import RootState
 import { closeEditProfileModal } from "../redux/editProfileModalSlice"; // Modal actions
 import Modal from "@mui/material/Modal";
+import Image from "next/image"; // Use Next.js Image component for optimization
 
 export default function EditProfileModal() {
   const isOpen = useSelector((state: RootState) => state.editProfileModal.editProfileModalOpen); // Modal state
@@ -22,7 +23,6 @@ export default function EditProfileModal() {
   // Fetch user data if modal is open and user is logged in
   useEffect(() => {
     if (isOpen && user && user.uid) {
-      // Fetch current user data and populate fields
       const fetchUserData = async () => {
         try {
           const userRef = doc(firestore, "users", user.uid);
@@ -60,10 +60,8 @@ export default function EditProfileModal() {
         // Monitor the upload progress
         uploadTask.on(
           "state_changed",
-          (snapshot) => {
+          () => {
             // Optional: Track upload progress
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
           },
           (error) => {
             console.error("Error uploading image: ", error);
@@ -114,7 +112,7 @@ export default function EditProfileModal() {
         {/* Profile Image Display */}
         <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
           {photoURL ? (
-            <img src={photoURL} alt="Profile" className="w-full h-full object-cover" />
+            <Image src={photoURL} alt="Profile" layout="fill" objectFit="cover" /> // Use Next.js Image component
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gray-300 text-gray-600">
               No Image
