@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPost } from "../services/PostService"; // You can move the createPost function to a service file if preferred
+import { createPost } from "../Services/PostService"; // Import the service function
 
 const PostCreationForm = ({ userId }) => {
   const [content, setContent] = useState("");
