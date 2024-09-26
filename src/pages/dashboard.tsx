@@ -93,7 +93,7 @@ export default function Dashboard() {
     setUploading(true);
 
     try {
-      const storageRef = ref(storage, `profileImages/${user.uid}/${profileImage.name}`);
+      const storageRef = ref(storage, `profilePictures/${user.uid}/${profileImage.name}`); // Updated path to match storage rules
       const uploadTask = uploadBytesResumable(storageRef, profileImage);
 
       uploadTask.on(
