@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore"; // Firestore methods
+import { doc, collection, getDocs, query, where, getDoc } from "firebase/firestore"; // Firestore methods
 import { auth, firestore } from "../firebase"; // Firestore instance and Auth import
 import { RootState } from "../redux/store";
 import { setUser, clearUser } from "../redux/authSlice";
@@ -16,7 +16,14 @@ interface Post {
   userId: string; // Assuming there's a userId field in your posts
 }
 
-// Placeholder to calculate days sober
+// Define a type for additional user data
+interface UserData {
+  goal: string;
+  startDate: string;
+  motivation: string;
+}
+
+// Function to calculate days sober based on start date
 const calculateDaysSober = (startDate: string): number => {
   const start = new Date(startDate);
   const today = new Date();
@@ -27,11 +34,28 @@ const calculateDaysSober = (startDate: string): number => {
 
 export default function Dashboard() {
   const [userPosts, setUserPosts] = useState<Post[]>([]); // Define posts with the Post type
+  const [userData, setUserData] = useState<UserData | null>(null); // Additional user data from Firestore
   const [loading, setLoading] = useState(true); // Loading state
   const [daysSober, setDaysSober] = useState<number>(0); // Track days sober
   const user = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
   const dispatch = useDispatch();
+
+  // Fetch user's additional Firestore data (goal, startDate, motivation)
+  const fetchUserData = async (userId: string) => {
+    try {
+      const userDoc = await getDoc(doc(firestore, "users", userId)); // Get user document
+      if (userDoc.exists()) {
+        const data = userDoc.data() as UserData;
+        setUserData(data);
+        setDaysSober(calculateDaysSober(data.startDate)); // Calculate days sober from startDate
+      } else {
+        console.error("No user data found!");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   // Fetch user's posts from Firestore
   const fetchUserPosts = async (userId: string) => {
@@ -60,14 +84,11 @@ export default function Dashboard() {
             email: firebaseUser.email!,
             photoURL: firebaseUser.photoURL || "/default-profile.png", // Default profile picture
             displayName: firebaseUser.displayName || "Anonymous User",
-            goal: "30 Days", // Placeholder for the goal
           })
         );
 
-        // Calculate days sober - adjust with actual date if you have it
-        setDaysSober(calculateDaysSober("2024-01-01")); // Example: sobriety started Jan 1, 2024
-
-        // Fetch user posts from Firestore
+        // Fetch user data and posts from Firestore
+        await fetchUserData(firebaseUser.uid);
         await fetchUserPosts(firebaseUser.uid);
       } else {
         dispatch(clearUser());
@@ -96,7 +117,9 @@ export default function Dashboard() {
         />
         <div className="ml-0 md:ml-6 mt-4 md:mt-0 text-center md:text-left">
           <h1 className="text-3xl font-bold text-gray-800">{user?.displayName || "User Name"}</h1>
-          <p className="text-lg text-gray-600">Sobriety Goal: {user?.goal || "Set your goal"}</p>
+          <p className="text-lg text-gray-600">Sobriety Goal: {userData?.goal || "Set your goal"}</p>
+          <p className="text-lg text-gray-600">Start Date: {userData?.startDate || "Set your start date"}</p>
+          <p className="text-lg text-gray-600">Motivation: {userData?.motivation || "Set your motivation"}</p>
           <p className="text-lg text-gray-600">Days Sober: <strong>{daysSober}</strong></p>
           <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
             Edit Profile
