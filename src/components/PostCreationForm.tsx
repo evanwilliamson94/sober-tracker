@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { createPost } from "../Services/PostService"; // Import the service function
 
-const PostCreationForm = ({ userId }) => {
-  const [content, setContent] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+// Define the props type
+interface PostCreationFormProps {
+  userId: string; // Define the type for userId
+}
 
-  const handleSubmit = async (e) => {
+const PostCreationForm: React.FC<PostCreationFormProps> = ({ userId }) => {
+  const [content, setContent] = useState<string>(""); // Explicitly typing state as string
+  const [imageFile, setImageFile] = useState<File | null>(null); // Explicitly typing state as File or null
+  const [loading, setLoading] = useState<boolean>(false); // Explicitly typing state as boolean
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -31,7 +36,7 @@ const PostCreationForm = ({ userId }) => {
         <input
           type="file"
           accept="image/*"
-          onChange={(e) => setImageFile(e.target.files[0])}
+          onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
         />
         <button type="submit" disabled={loading}>
           {loading ? "Posting..." : "Post"}
