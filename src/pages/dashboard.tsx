@@ -43,6 +43,7 @@ export default function Dashboard() {
   const [profileImage, setProfileImage] = useState<File | null>(null); // Profile image state
   const [uploading, setUploading] = useState(false); // Uploading state for profile image
   const [photoURL, setPhotoURL] = useState<string>(""); // Photo URL state
+  const [timestamp, setTimestamp] = useState<number>(Date.now()); // Timestamp to bust cache
 
   const user = useSelector((state: RootState) => state.auth.user);
   const router = useRouter();
@@ -56,7 +57,9 @@ export default function Dashboard() {
         const data = userDoc.data() as UserData;
         setUserData(data);
         setDaysSober(calculateDaysSober(data.startDate)); // Calculate days sober
-        setPhotoURL(data.photoURL || "/default-profile.png"); // Set photo URL
+        if (data.photoURL) {
+          setPhotoURL(data.photoURL);
+        }
         console.log("Fetched photoURL from Firestore:", data.photoURL); // Log fetched photoURL
       } else {
         console.error("No user data found!");
@@ -111,6 +114,7 @@ export default function Dashboard() {
           console.log("Uploaded Image URL:", downloadURL); // Log the URL of the uploaded image
           await updateDoc(doc(firestore, "users", user.uid), { photoURL: downloadURL }); // Update Firestore
           setPhotoURL(downloadURL); // Update local state
+          setTimestamp(Date.now()); // Force image re-render by updating the timestamp
           setUploading(false);
         }
       );
@@ -154,7 +158,7 @@ export default function Dashboard() {
       {/* Profile Section */}
       <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mb-8 flex flex-col md:flex-row items-center md:items-start">
         <Image
-          src={photoURL || "/default-profile.png"}
+          src={`${photoURL}?t=${timestamp}`} // Bust cache using timestamp
           alt="Profile Picture"
           width={100}
           height={100}
