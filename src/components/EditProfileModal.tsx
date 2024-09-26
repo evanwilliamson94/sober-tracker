@@ -1,20 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDoc, doc } from "firebase/firestore"; // Firestore update methods
-import { firestore } from "../firebase"; // Import Firestore
+import { updateDoc, doc, getDoc } from "firebase/firestore"; // Firestore update and get methods
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Storage methods for image upload
+import { firestore, storage } from "../firebase"; // Firestore and Storage imports
 import { RootState } from "../redux/store"; // Import RootState
 import { closeEditProfileModal } from "../redux/editProfileModalSlice"; // Modal actions
 import Modal from "@mui/material/Modal";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"; // For file uploads
-import { storage } from "../firebase"; // Firebase storage instance
-import Image from "next/image";
-
-interface UserData {
-  goal: string;
-  startDate: string;
-  motivation: string;
-  photoURL?: string; // Optional photo URL field
-}
 
 export default function EditProfileModal() {
   const isOpen = useSelector((state: RootState) => state.editProfileModal.editProfileModalOpen); // Modal state
@@ -24,54 +15,68 @@ export default function EditProfileModal() {
   const [goal, setGoal] = useState<string>(""); // User goal state
   const [startDate, setStartDate] = useState<string>(""); // User start date state
   const [motivation, setMotivation] = useState<string>(""); // User motivation state
+  const [profileImage, setProfileImage] = useState<File | null>(null); // Profile image file state
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
-  const [photoURL, setPhotoURL] = useState<string>(user?.photoURL || "/default-profile.png"); // Profile picture state
-  const [newPhotoFile, setNewPhotoFile] = useState<File | null>(null); // Store selected photo file
 
   // Fetch user data if modal is open and user is logged in
   useEffect(() => {
-    if (isOpen && user) {
-      // Fetch current user data and populate fields (omitted for simplicity)
+    if (isOpen && user && user.uid) {
+      // Fetch current user data and populate fields
+      const fetchUserData = async () => {
+        try {
+          const userRef = doc(firestore, "users", user.uid);
+          const userDoc = await getDoc(userRef);
+
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            setGoal(data.goal || "");
+            setStartDate(data.startDate || "");
+            setMotivation(data.motivation || "");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+
+      fetchUserData();
     }
   }, [isOpen, user]);
 
   // Handle profile update submission
   const handleUpdateProfile = async () => {
-    if (!user) return;
+    if (!user || !user.uid) return;
     setIsLoading(true);
 
     try {
       const userRef = doc(firestore, "users", user.uid);
 
-      // If a new profile picture has been selected, upload it
-      if (newPhotoFile) {
-        const storageRef = ref(storage, `profile_pictures/${user.uid}`);
-        const uploadTask = uploadBytesResumable(storageRef, newPhotoFile);
+      // If the user has uploaded a new profile image
+      if (profileImage) {
+        const imageRef = ref(storage, `profilePictures/${user.uid}`);
+        const uploadTask = uploadBytesResumable(imageRef, profileImage);
 
         uploadTask.on(
           "state_changed",
-          (snapshot) => {},
+          null, // You can add progress tracking if needed
           (error) => {
-            console.error("Error uploading image:", error);
+            console.error("Error uploading image: ", error);
           },
           async () => {
-            // Get the download URL after successful upload
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            setPhotoURL(downloadURL); // Update the photo URL state
 
-            // Update user document with new photoURL and other data
+            // Update the user's profile in Firestore with the new profile image
             await updateDoc(userRef, {
               goal,
               startDate,
               motivation,
-              photoURL: downloadURL,
+              photoURL: downloadURL, // Update with the uploaded image URL
             });
 
             dispatch(closeEditProfileModal()); // Close modal on success
           }
         );
       } else {
-        // Update user document without new photo
+        // If no image is uploaded, just update the goal, startDate, and motivation
         await updateDoc(userRef, {
           goal,
           startDate,
@@ -87,15 +92,6 @@ export default function EditProfileModal() {
     }
   };
 
-  // Handle image file selection
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setNewPhotoFile(file);
-      setPhotoURL(URL.createObjectURL(file)); // Show live preview
-    }
-  };
-
   return (
     <Modal
       open={isOpen}
@@ -105,25 +101,6 @@ export default function EditProfileModal() {
       <div className="w-[90%] max-w-md h-auto bg-black text-white border border-gray-700 rounded-lg p-6">
         <h1 className="text-center text-3xl font-bold mb-6">Edit Profile</h1>
 
-        {/* Profile Picture Upload */}
-        <div className="flex flex-col items-center mb-4">
-          <Image
-            src={photoURL}
-            alt="Profile Picture"
-            width={100}
-            height={100}
-            className="rounded-full mb-2"
-          />
-          <label className="text-sm font-bold">Change Profile Picture</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            className="mt-2"
-          />
-        </div>
-
-        {/* Other Profile Inputs */}
         <input
           placeholder="Sobriety Goal (e.g., 30 days)"
           className="w-full h-10 rounded-md bg-transparent border border-gray-700 p-4 mb-4"
@@ -131,6 +108,7 @@ export default function EditProfileModal() {
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
         />
+
         <input
           placeholder="Sobriety Start Date"
           className="w-full h-10 rounded-md bg-transparent border border-gray-700 p-4 mb-4"
@@ -138,12 +116,21 @@ export default function EditProfileModal() {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
+
         <textarea
           placeholder="Why are you choosing sobriety?"
           className="w-full rounded-md bg-transparent border border-gray-700 p-4 mb-4"
           value={motivation}
           onChange={(e) => setMotivation(e.target.value)}
         />
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setProfileImage(e.target.files ? e.target.files[0] : null)}
+          className="w-full h-10 rounded-md bg-transparent border border-gray-700 p-4 mb-4"
+        />
+
         <button
           className={`w-full rounded-md py-2 mt-4 font-bold ${
             isLoading ? "bg-gray-500" : "bg-white text-black"
