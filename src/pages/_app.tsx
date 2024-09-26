@@ -1,22 +1,30 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Navbar from '../components/Navbar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import Head from 'next/head';
 import { Provider } from 'react-redux';  // Import the Redux Provider
-import store from "../redux/store"
+import store from "../redux/store";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth } from '../firebase'; // Import Firebase
 
-// Define the gtag function type
-declare global {
-  interface Window {
-    gtag?: (command: string, targetId: string, config?: { [key: string]: unknown }) => void;
-  }
-}
+import Banner from '../components/Banner'; // Import the Banner component
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [user, setUser] = useState<User | null>(null); // Track user state
+
+  // Check if user is logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser); // Update user state
+    });
+
+    // Cleanup Firebase auth listener on component unmount
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -65,6 +73,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <Navbar />
         <Component {...pageProps} />
+        
+        {/* Show Banner only when the user is NOT logged in */}
+        {!user && <Banner />}
       </Provider>
     </>
   );
