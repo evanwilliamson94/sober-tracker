@@ -11,6 +11,8 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from '../firebase'; // Import Firebase
 
 import Banner from '../components/Banner'; // Import the Banner component
+import LoginModal from '../components/LoginModal';  // Move LoginModal here
+import SignupModal from '../components/SignUpModal'; // Move SignupModal here
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -73,9 +75,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <Navbar />
         <Component {...pageProps} />
-        
+
         {/* Show Banner only when the user is NOT logged in */}
         {!user && <Banner />}
+
+        {/* Always render Login and Signup Modals */}
+        <LoginModal />
+        <SignupModal />
       </Provider>
     </>
   );
