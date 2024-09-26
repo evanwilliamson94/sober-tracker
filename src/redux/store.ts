@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "./modalSlice"; // Import your modal slice
-import authReducer from "./authSlice"; // Import your new auth slice
+import modalReducer from "./modalSlice"; // Import modal slice
+import authReducer from "./authSlice"; // Import auth slice
+import editProfileModalReducer from "../redux/editProfileModalSlice"; // Import edit profile modal slice
 
 const store = configureStore({
   reducer: {
-    modals: modalReducer,  // Modal state management
-    auth: authReducer,     // Add the auth reducer to manage user authentication
+    modals: modalReducer,  
+    auth: authReducer,
+    editProfileModal: editProfileModalReducer, // Add edit profile modal slice
   },
 });
 

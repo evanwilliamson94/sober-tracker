@@ -6,7 +6,9 @@ import { doc, collection, getDocs, query, where, getDoc } from "firebase/firesto
 import { auth, firestore } from "../firebase"; // Firestore instance and Auth import
 import { RootState } from "../redux/store";
 import { setUser, clearUser } from "../redux/authSlice";
+import { openEditProfileModal } from "../redux/editProfileModalSlice";// Import the action to open modal
 import Image from "next/image"; // Next.js Image component
+import EditProfileModal from "../components/EditProfileModal"; // Import the modal component
 
 // Define a type for the post
 interface Post {
@@ -121,7 +123,10 @@ export default function Dashboard() {
           <p className="text-lg text-gray-600">Start Date: {userData?.startDate || "Set your start date"}</p>
           <p className="text-lg text-gray-600">Motivation: {userData?.motivation || "Set your motivation"}</p>
           <p className="text-lg text-gray-600">Days Sober: <strong>{daysSober}</strong></p>
-          <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+          <button
+            className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+            onClick={() => dispatch(openEditProfileModal())} // Trigger modal on click
+          >
             Edit Profile
           </button>
         </div>
@@ -141,6 +146,9 @@ export default function Dashboard() {
           ))
         )}
       </div>
+
+      {/* Include the EditProfileModal */}
+      <EditProfileModal />
     </div>
   );
 }
