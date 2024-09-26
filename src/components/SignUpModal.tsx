@@ -2,8 +2,9 @@ import { closeSignupModal } from "../redux/modalSlice";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"; // Firestore methods
 import { useState } from "react";
-import { auth } from "../firebase";
+import { auth, firestore } from "../firebase"; // Import Firestore instance
 import { useRouter } from "next/router"; // Import useRouter for navigation
 import { RootState } from "../redux/store"; // Import the RootState type
 import { FirebaseError } from "firebase/app"; // Import FirebaseError type
@@ -37,9 +38,19 @@ export default function SignupModal() {
       setIsLoading(true); // Set loading state
 
       // Sign up the user
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      // Optionally save additional data such as goal, startDate, motivation, etc.
+      // Save additional data such as goal, startDate, and motivation to Firestore
+      await setDoc(doc(firestore, "users", user.uid), {
+        name: name,
+        email: email,
+        goal: goal,
+        startDate: startDate,
+        motivation: motivation,
+        uid: user.uid,
+        createdAt: new Date().toISOString(), // Track when the user signed up
+      });
 
       // Close the modal after successful signup
       dispatch(closeSignupModal());
