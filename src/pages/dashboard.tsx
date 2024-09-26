@@ -57,6 +57,7 @@ export default function Dashboard() {
         setUserData(data);
         setDaysSober(calculateDaysSober(data.startDate)); // Calculate days sober
         setPhotoURL(data.photoURL || "/default-profile.png"); // Set photo URL
+        console.log("Fetched photoURL from Firestore:", data.photoURL); // Log fetched photoURL
       } else {
         console.error("No user data found!");
       }
@@ -107,6 +108,7 @@ export default function Dashboard() {
         },
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          console.log("Uploaded Image URL:", downloadURL); // Log the URL of the uploaded image
           await updateDoc(doc(firestore, "users", user.uid), { photoURL: downloadURL }); // Update Firestore
           setPhotoURL(downloadURL); // Update local state
           setUploading(false);
@@ -152,7 +154,7 @@ export default function Dashboard() {
       {/* Profile Section */}
       <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mb-8 flex flex-col md:flex-row items-center md:items-start">
         <Image
-          src={photoURL || "/default-profile.png"} // Ensure the correct photo URL is used
+          src={photoURL || "/default-profile.png"}
           alt="Profile Picture"
           width={100}
           height={100}
