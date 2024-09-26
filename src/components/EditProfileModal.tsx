@@ -17,6 +17,7 @@ export default function EditProfileModal() {
   const [motivation, setMotivation] = useState<string>(""); // User motivation state
   const [profileImage, setProfileImage] = useState<File | null>(null); // Profile image file state
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
+  const [photoURL, setPhotoURL] = useState<string>(""); // State for profile image URL
 
   // Fetch user data if modal is open and user is logged in
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function EditProfileModal() {
             setGoal(data.goal || "");
             setStartDate(data.startDate || "");
             setMotivation(data.motivation || "");
+            setPhotoURL(data.photoURL || ""); // Set profile image URL or fallback to empty string
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -72,6 +74,7 @@ export default function EditProfileModal() {
               photoURL: downloadURL, // Update with the uploaded image URL
             });
 
+            setPhotoURL(downloadURL); // Immediately update the local photoURL state
             dispatch(closeEditProfileModal()); // Close modal on success
           }
         );
@@ -100,6 +103,17 @@ export default function EditProfileModal() {
     >
       <div className="w-[90%] max-w-md h-auto bg-black text-white border border-gray-700 rounded-lg p-6">
         <h1 className="text-center text-3xl font-bold mb-6">Edit Profile</h1>
+
+        {/* Profile Image Display */}
+        <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
+          {photoURL ? (
+            <img src={photoURL} alt="Profile" className="w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gray-300 text-gray-600">
+              No Image
+            </div>
+          )}
+        </div>
 
         <input
           placeholder="Sobriety Goal (e.g., 30 days)"
