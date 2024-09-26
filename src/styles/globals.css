@@ -2,19 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes darkToLightFadeIn {
-    100% {
-      opacity: 1;
-      background-color: #0a1128; /* Dark blue initial */
-    }
-    0% {
-      opacity: 0;
-      background-color: #0a1128; /* Transparent to show the image */
-    }
-  }
-  
-  .animate-darkToLightFadeIn {
-    animation: darkToLightFadeIn 3s ease-in-out forwards;
-  }
-
-  
