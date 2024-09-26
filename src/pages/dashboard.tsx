@@ -152,7 +152,7 @@ export default function Dashboard() {
       {/* Profile Section */}
       <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mb-8 flex flex-col md:flex-row items-center md:items-start">
         <Image
-          src={photoURL || "/default-profile.png"}
+          src={photoURL || "/default-profile.png"} // Ensure the correct photo URL is used
           alt="Profile Picture"
           width={100}
           height={100}
