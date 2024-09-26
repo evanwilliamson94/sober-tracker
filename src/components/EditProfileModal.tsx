@@ -25,9 +25,8 @@ export default function EditProfileModal() {
 
   // Fetch user data if modal is open and user is logged in
   useEffect(() => {
-    if (isOpen && user && user.uid) {
-      // Fetch current user data and populate fields
-      async function fetchUserData() {
+    const fetchUserData = async () => {
+      if (user && user.uid) {
         try {
           const userRef = doc(firestore, "users", user.uid); // Reference to the user's Firestore document
           const userDoc = await getDoc(userRef); // Fetch user document
@@ -42,8 +41,10 @@ export default function EditProfileModal() {
           console.error("Error fetching user data:", error);
         }
       }
+    };
 
-      fetchUserData();
+    if (isOpen && user) {
+      fetchUserData(); // Call the async arrow function
     }
   }, [isOpen, user]);
 
