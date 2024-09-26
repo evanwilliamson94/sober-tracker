@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { doc, collection, getDocs, query, where, getDoc, updateDoc } from "firebase/firestore"; // Firestore methods
+import { doc, collection, getDocs, setDoc, query, where, getDoc, updateDoc } from "firebase/firestore"; // Firestore methods
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Firebase storage for image upload
 import { auth, firestore, storage } from "../firebase"; // Firestore, Auth, and Storage imports
 import { RootState } from "../redux/store";
@@ -92,37 +92,48 @@ export default function Dashboard() {
   };
 
   // Upload profile image to Firebase Storage
-  const handleImageUpload = async () => {
-    if (!profileImage || !user) return;
-    setUploading(true);
+const handleImageUpload = async () => {
+  if (!profileImage || !user) return;
+  setUploading(true);
 
-    try {
-      const storageRef = ref(storage, `profilePictures/${user.uid}/${profileImage.name}`); // Updated path to match storage rules
-      const uploadTask = uploadBytesResumable(storageRef, profileImage);
+  try {
+    const storageRef = ref(storage, `profilePictures/${user.uid}/${profileImage.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, profileImage);
 
-      uploadTask.on(
-        "state_changed",
-        () => {
-          // Optional: Track upload progress here
-        },
-        (error) => {
-          console.error("Error during image upload:", error);
-          setUploading(false);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log("Uploaded Image URL:", downloadURL); // Log the URL of the uploaded image
-          await updateDoc(doc(firestore, "users", user.uid), { photoURL: downloadURL }); // Update Firestore
-          setPhotoURL(downloadURL); // Update local state
-          setTimestamp(Date.now()); // Force image re-render by updating the timestamp
-          setUploading(false);
+    uploadTask.on(
+      "state_changed",
+      () => {
+        // Optional: Track upload progress here
+      },
+      (error) => {
+        console.error("Error during image upload:", error);
+        setUploading(false);
+      },
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log("Uploaded Image URL:", downloadURL);
+
+        const userDocRef = doc(firestore, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (!userDoc.exists()) {
+          console.log("User document doesn't exist. Creating one...");
+          await setDoc(userDocRef, { photoURL: downloadURL });
+        } else {
+          await updateDoc(userDocRef, { photoURL: downloadURL });
         }
-      );
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setUploading(false);
-    }
-  };
+
+        setPhotoURL(downloadURL);
+        setTimestamp(Date.now()); // Force image re-render
+        setUploading(false);
+      }
+    );
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    setUploading(false);
+  }
+};
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
