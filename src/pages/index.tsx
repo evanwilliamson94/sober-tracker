@@ -10,11 +10,15 @@ import { auth } from "../firebase"; // Firebase Auth import
 import { onAuthStateChanged, User } from "firebase/auth"; // Firebase User type
 
 // Extend the window object to include gtag in TypeScript
+// src/global.d.ts
+export {};
+
 declare global {
   interface Window {
     gtag?: (...args: [string, string, Record<string, unknown>?]) => void;
   }
 }
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -95,57 +99,52 @@ export default function Home() {
       />
 
       {/* Conditionally render Banner and Modals only if user is not logged in */}
-      {!user ? (
+      {!user && (
         <>
           <Banner />
           <LoginModal />
           <SignupModal />
         </>
-      ) : (
-        <div className="welcome-back">
-          <h1 className="text-center text-4xl font-bold">Welcome Back!</h1>
-        </div>
       )}
 
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center bg-cover bg-center">
-  {isLoading ? (
-    // Skeleton loading effect with flex column layout
-    <div className="flex flex-col items-center justify-center w-full h-full space-y-6">
-      <div className="bg-gray-300 animate-pulse w-3/4 h-12 rounded-md"></div> {/* Simulate title */}
-      <div className="bg-gray-300 animate-pulse w-1/2 h-6 rounded-md"></div> {/* Simulate description */}
-      <div className="bg-gray-300 animate-pulse w-1/4 h-10 rounded-md"></div> {/* Simulate button */}
-    </div>
-  ) : (
-    <>
-      <Image
-        src="/Sober-tracker-background2.png"
-        alt="Sober Tracker Background"
-        layout="fill"
-        objectFit="cover"
-        onLoadingComplete={() => setIsLoading(false)}
-      />
-      <div className="bg-black bg-opacity-40 absolute inset-0 z-1"></div>
+        {isLoading ? (
+          // Skeleton loading effect with flex column layout
+          <div className="flex flex-col items-center justify-center w-full h-full space-y-6">
+            <div className="bg-gray-300 animate-pulse w-3/4 h-12 rounded-md"></div> {/* Simulate title */}
+            <div className="bg-gray-300 animate-pulse w-1/2 h-6 rounded-md"></div> {/* Simulate description */}
+            <div className="bg-gray-300 animate-pulse w-1/4 h-10 rounded-md"></div> {/* Simulate button */}
+          </div>
+        ) : (
+          <>
+            <Image
+              src="/Sober-tracker-background2.png"
+              alt="Sober Tracker Background"
+              layout="fill"
+              objectFit="cover"
+              onLoadingComplete={() => setIsLoading(false)}
+              priority
+            />
+            <div className="bg-black bg-opacity-40 absolute inset-0 z-1"></div>
 
-      {/* Only show the content when loading is complete */}
-      <div className="relative z-10 text-center text-white p-4 sm:p-6 max-w-xl sm:max-w-2xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-          Take Control of Your Sobriety Journey
-        </h1>
-        <p className="text-base sm:text-lg md:text-xl mb-8">
-          Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
-        </p>
-        <Link 
-          href="/tracker" 
-          className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
-        >
-          Start Tracking Now
-        </Link>
+            {/* Only show the content when loading is complete */}
+            <div className="relative z-10 text-center text-white p-4 sm:p-6 max-w-xl sm:max-w-2xl mx-auto">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+                Take Control of Your Sobriety Journey
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl mb-8">
+                Track your progress, receive support, and stay motivated with daily affirmations designed for your recovery.
+              </p>
+              <Link href="/tracker">
+                <a className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
+                  Start Tracking Now
+                </a>
+              </Link>
+            </div>
+          </>
+        )}
       </div>
-    </>
-  )}
-</div>
-
 
       {/* Features Section */}
       <section className="py-16 bg-gray-100">
@@ -216,11 +215,10 @@ export default function Home() {
             Whether you&apos;re beginning or maintaining your sobriety journey, Sober Tracker offers the tools and community to support your recovery. 
             Stay motivated, track your progress, and connect with others on a similar path.
           </p>
-          <Link 
-            href="/community" 
-            className="inline-block bg-teal-500 hover:bg-teal-600 text-white py-3 px-8 rounded-lg font-semibold transition duration-300"
-          >
-            Join the Community
+          <Link href="/community">
+            <a className="inline-block bg-teal-500 hover:bg-teal-600 text-white py-3 px-8 rounded-lg font-semibold transition duration-300">
+              Join the Community
+            </a>
           </Link>
         </div>
       </section>
