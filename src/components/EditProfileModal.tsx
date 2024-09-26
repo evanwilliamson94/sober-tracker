@@ -54,27 +54,34 @@ export default function EditProfileModal() {
 
       // If the user has uploaded a new profile image
       if (profileImage) {
-        const imageRef = ref(storage, `profilePictures/${user.uid}`);
+        const imageRef = ref(storage, `profilePictures/${user.uid}/${profileImage.name}`); // Use user.uid and image name for unique storage path
         const uploadTask = uploadBytesResumable(imageRef, profileImage);
 
+        // Monitor the upload progress
         uploadTask.on(
           "state_changed",
-          null, // You can add progress tracking if needed
+          (snapshot) => {
+            // Optional: Track upload progress
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+          },
           (error) => {
             console.error("Error uploading image: ", error);
           },
           async () => {
+            // On successful upload, get the image download URL
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            console.log("File available at: ", downloadURL);
 
-            // Update the user's profile in Firestore with the new profile image
+            // Update Firestore with the new profile image URL
             await updateDoc(userRef, {
               goal,
               startDate,
               motivation,
-              photoURL: downloadURL, // Update with the uploaded image URL
+              photoURL: downloadURL, // Set the uploaded image URL in Firestore
             });
 
-            setPhotoURL(downloadURL); // Immediately update the local photoURL state
+            setPhotoURL(downloadURL); // Immediately update the local photoURL state to display the image
             dispatch(closeEditProfileModal()); // Close modal on success
           }
         );
