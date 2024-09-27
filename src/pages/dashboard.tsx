@@ -168,13 +168,13 @@ const handleImageUpload = async () => {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
       {/* Profile Section */}
       <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mb-8 flex flex-col md:flex-row items-center md:items-start">
-        <Image
-          src={`${photoURL}?t=${timestamp}`} // Bust cache using timestamp
-          alt="Profile Picture"
-          width={100}
-          height={100}
-          className="rounded-full border border-gray-300"
-        />
+      <Image
+  src={`${photoURL}?t=${timestamp}`} // Bust cache using timestamp
+  alt="Profile Picture"
+  width={100}
+  height={100}
+  className="rounded-full border border-gray-300"
+/>
         <div className="ml-0 md:ml-6 mt-4 md:mt-0 text-center md:text-left">
           <h1 className="text-3xl font-bold text-gray-800">{user?.displayName || "User Name"}</h1>
           <p className="text-lg text-gray-600">Sobriety Goal: {userData?.goal || "Set your goal"}</p>
