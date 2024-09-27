@@ -22,3 +22,4 @@ export const auth = typeof window !== "undefined" ? getAuth(app) : getAuth();
 export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
 export const firestore = getFirestore(app); // Firestore instance
 export const storage = getStorage(app); // Firebase Storage instance
+export const db = getFirestore(app)
