@@ -16,7 +16,7 @@ interface Post {
   id: string;
   title: string;
   description: string;
-  userId: string; // Assuming there's a userId field in your posts
+  userId: string;
 }
 
 // Define a type for additional user data
@@ -60,7 +60,6 @@ export default function Dashboard() {
         if (data.photoURL) {
           setPhotoURL(data.photoURL);
         }
-        console.log("Fetched photoURL from Firestore:", data.photoURL); // Log fetched photoURL
       } else {
         console.error("No user data found!");
       }
@@ -92,48 +91,45 @@ export default function Dashboard() {
   };
 
   // Upload profile image to Firebase Storage
-const handleImageUpload = async () => {
-  if (!profileImage || !user) return;
-  setUploading(true);
+  const handleImageUpload = async () => {
+    if (!profileImage || !user) return;
+    setUploading(true);
 
-  try {
-    const storageRef = ref(storage, `profilePictures/${user.uid}/${profileImage.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, profileImage);
+    try {
+      const storageRef = ref(storage, `profilePictures/${user.uid}/${profileImage.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, profileImage);
 
-    uploadTask.on(
-      "state_changed",
-      () => {
-        // Optional: Track upload progress here
-      },
-      (error) => {
-        console.error("Error during image upload:", error);
-        setUploading(false);
-      },
-      async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        console.log("Uploaded Image URL:", downloadURL);
+      uploadTask.on(
+        "state_changed",
+        () => {
+          // Optional: Track upload progress here
+        },
+        (error) => {
+          console.error("Error during image upload:", error);
+          setUploading(false);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-        const userDocRef = doc(firestore, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
+          const userDocRef = doc(firestore, "users", user.uid);
+          const userDoc = await getDoc(userDocRef);
 
-        if (!userDoc.exists()) {
-          console.log("User document doesn't exist. Creating one...");
-          await setDoc(userDocRef, { photoURL: downloadURL });
-        } else {
-          await updateDoc(userDocRef, { photoURL: downloadURL });
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, { photoURL: downloadURL });
+          } else {
+            await updateDoc(userDocRef, { photoURL: downloadURL });
+          }
+
+          setPhotoURL(downloadURL);
+          setTimestamp(Date.now()); // Force image re-render
+          setUploading(false);
         }
-
-        setPhotoURL(downloadURL);
-        setTimestamp(Date.now()); // Force image re-render
-        setUploading(false);
-      }
-    );
-  } catch (error) {
-    console.error("Error uploading image:", error);
-    setUploading(false);
-  }
-};
-
+      );
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setUploading(false);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
@@ -167,36 +163,40 @@ const handleImageUpload = async () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
       {/* Profile Section */}
-      <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 mb-8 flex flex-col md:flex-row items-center md:items-start">
-      <Image
-  src={`${photoURL}?t=${timestamp}`} // Bust cache using timestamp
-  alt="Profile Picture"
-  width={100}
-  height={100}
-  className="rounded-full border border-gray-300"
-/>
-        <div className="ml-0 md:ml-6 mt-4 md:mt-0 text-center md:text-left">
-          <h1 className="text-3xl font-bold text-gray-800">{user?.displayName || "User Name"}</h1>
-          <p className="text-lg text-gray-600">Sobriety Goal: {userData?.goal || "Set your goal"}</p>
-          <p className="text-lg text-gray-600">Start Date: {userData?.startDate || "Set your start date"}</p>
-          <p className="text-lg text-gray-600">Motivation: {userData?.motivation || "Set your motivation"}</p>
-          <p className="text-lg text-gray-600">Days Sober: <strong>{daysSober}</strong></p>
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-4xl p-10 flex flex-col md:flex-row items-center md:items-start">
+        <div className="relative mb-6 md:mb-0">
+          <Image
+            src={`${photoURL}?t=${timestamp}`} // Bust cache using timestamp
+            alt="Profile Picture"
+            width={150}
+            height={150}
+            className="rounded-full border-4 border-blue-500 shadow-md"
+          />
+          <label className="block mt-2">
+            <span className="text-blue-600 font-semibold">Change Profile Picture</span>
+            <input type="file" className="hidden" onChange={handleImageChange} />
+          </label>
+          <button
+            className={`mt-2 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-200 ${uploading ? "opacity-50 cursor-not-allowed" : ""}`}
+            onClick={handleImageUpload}
+            disabled={uploading}
+          >
+            {uploading ? "Uploading..." : "Upload"}
+          </button>
+        </div>
 
-          {/* Upload Profile Image Section */}
-          <div className="mt-4">
-            <input type="file" onChange={handleImageChange} />
-            <button
-              className={`mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg ${uploading ? "opacity-50 cursor-not-allowed" : ""}`}
-              onClick={handleImageUpload}
-              disabled={uploading}
-            >
-              {uploading ? "Uploading..." : "Upload Image"}
-            </button>
-          </div>
+        <div className="ml-0 md:ml-6 text-center md:text-left">
+          <h1 className="text-4xl font-extrabold text-gray-900">{user?.displayName || "User Name"}</h1>
+          <p className="text-lg text-gray-700 mt-2">Sobriety Goal: <span className="font-semibold">{userData?.goal || "Set your goal"}</span></p>
+          <p className="text-lg text-gray-700">Start Date: <span className="font-semibold">{userData?.startDate || "Set your start date"}</span></p>
+          <p className="text-lg text-gray-700">Motivation: <span className="font-semibold">{userData?.motivation || "Set your motivation"}</span></p>
+          <p className="text-lg text-gray-700 mt-4">
+            Days Sober: <strong className="text-green-600">{daysSober}</strong>
+          </p>
 
           <button
-            className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
-            onClick={() => dispatch(openEditProfileModal())} // Trigger modal on click
+            className="mt-6 bg-blue-600 text-white py-2 px-6 rounded-full hover:bg-blue-700 transition duration-200"
+            onClick={() => dispatch(openEditProfileModal())}
           >
             Edit Profile
           </button>
@@ -204,15 +204,15 @@ const handleImageUpload = async () => {
       </div>
 
       {/* User Posts Section */}
-      <div className="w-full max-w-3xl">
-        <h2 className="text-xl font-bold mb-4">Your Posts</h2>
+      <div className="w-full max-w-4xl mt-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Posts</h2>
         {userPosts.length === 0 ? (
-          <p className="text-gray-500">You haven&apos;t posted anything yet!</p> 
+          <p className="text-gray-500">You haven't posted anything yet!</p>
         ) : (
           userPosts.map((post) => (
-            <div key={post.id} className="bg-white shadow-lg rounded-lg p-4 mb-4">
-              <h3 className="font-bold">{post.title}</h3>
-              <p>{post.description}</p>
+            <div key={post.id} className="bg-white shadow-lg rounded-lg p-6 mb-6">
+              <h3 className="text-xl font-bold">{post.title}</h3>
+              <p className="text-gray-700 mt-2">{post.description}</p>
             </div>
           ))
         )}
